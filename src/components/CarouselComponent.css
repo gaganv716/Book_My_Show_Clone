@@ -8,7 +8,8 @@
 
 .carousel-container {
   width: 95vw; /* Reduce width slightly for spacing */
-  margin: 0 auto; /* Centers the image */
+  margin-left: -90px; /* Centers the image */
+  margin-right: 50px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -45,7 +46,7 @@
 }
 
 .carousel-btn.right {
-  right: 150px; /* Adjusted to your preference */
+  right: 320px; /* Adjusted to your preference */
 }
 
 .carousel-btn:hover {
