@@ -1,0 +1,159 @@
+/* Import modern font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  padding-top: 110px; /* Push content below navbar */
+}
+
+/* --- Top Nav - Modern Red Background --- */
+.top-nav {
+  background-color: #9c1c1c; /* Deep Brick Red */
+  color: white;
+  padding: 12px 0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Left Section - Logo & Search */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.search-bar {
+  width: 40%;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px 14px;
+  border: 2px solid white;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: 0.3s ease-in-out;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-bar input:focus {
+  background: white;
+  color: black;
+  border: 2px solid #ffcccb;
+}
+
+/* --- Right Section - Location, Login & Dropdown --- */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Location Selector */
+.location-dropdown .btn-light {
+  background: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.location-dropdown .btn-light:hover {
+  background: #f0f0f0;
+}
+
+/* Login Button */
+.login-btn {
+  font-weight: bold;
+  background-color: white;
+  color: #9c1c1c;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background-color: #ffcccc;
+}
+
+/* Three-line Dropdown */
+.profile-dropdown .btn-light {
+  background: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.profile-dropdown .btn-light:hover {
+  background: #f0f0f0;
+}
+
+/* --- Bottom Nav - Light Silver Background with Red Links --- */
+.bottom-nav {
+  background-color: #f8f8f8; /* Light Silver */
+  position: fixed;
+  top: 60px; /* Push below first navbar */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav .nav-link {
+  color: #b22222 !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0 12px;
+  transition: 0.3s ease-in-out;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.bottom-nav .nav-link:hover {
+  color: white !important;
+  background-color: #b22222;
+  transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .left-section {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .search-bar {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .right-section {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bottom-nav {
+    top: 90px; /* Adjust position on smaller screens */
+  }
+}
