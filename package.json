@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://gaganv716.github.io/Book_My_Show_Clone",
+"homepage": "https://gaganv716.github.io/Book_My_Show_Clone/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
