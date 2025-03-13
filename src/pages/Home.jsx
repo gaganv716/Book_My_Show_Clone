@@ -7,7 +7,7 @@ import LiveEvents from "../components/LiveEvents";
 
 const Home = () => {
   return (
-    <Router basename="/Book_My_Show_Clone"> {/* ✅ Set basename for GitHub Pages */}
+    <Router basename={import.meta.env.MODE === 'development' ? '/' : '/Book_My_Show_Clone'}>
       <>
         <NavBar />
         <div className="container mt-4">
