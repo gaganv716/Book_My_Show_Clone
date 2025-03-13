@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/Book_My_Show_Clone/', // ✅ Add this line
+  build: {
+    outDir: 'dist', // ✅ Ensure it's set to 'dist'
+  },
 })
