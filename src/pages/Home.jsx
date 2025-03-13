@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom"; // ✅ Import BrowserRouter
+import { HashRouter as Router } from "react-router-dom"; // ✅ Import BrowserRouter
 import NavBar from "../components/Navbar";
 import CarouselComponent from "../components/CarouselComponent";
 import MovieList from "../components/MovieList";
