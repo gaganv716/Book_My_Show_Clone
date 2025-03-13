@@ -3,7 +3,7 @@ import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CarouselComponent.css";
 
-import slide1 from "../assets/Gpay3.png";
+import slide1 from "../assets/GPAY4.png";
 import slide2 from "../assets/oppenheimer.jpg";
 import slide3 from "../assets/CABNW3.png";
 
