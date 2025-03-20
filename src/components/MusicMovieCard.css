@@ -1,0 +1,29 @@
+.music-movie-card {
+  width: 290px;
+  height: 500px; /* Adjust height as needed */
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.music-movie-card img {
+  width: 100%;
+  height: auto;
+}
+
+.music-movie-details {
+  padding: 10px;
+  text-align: center;
+}
+
+.music-movie-details h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.music-movie-details p {
+  margin: 5px 0;
+  font-size: 0.9em;
+}

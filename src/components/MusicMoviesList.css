@@ -1,0 +1,110 @@
+.music-movies-list {
+    padding: 20px; /* Same as movie-list */
+}
+
+.section-heading {
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    font-size: 36px;
+    color: #000000; /* Adjust color for better visibility */
+    margin: 40px 0 20px 0; /* Maintain heading spacing */
+}
+
+.music-scroll-container {
+    position: relative;
+    display: flex; /* Use flex for horizontal layout */
+    align-items: center;
+    justify-content: space-between; /* Ensures space for scroll buttons */
+    padding: 0 20px; /* Adds padding around the scroll area */
+}
+
+.music-container {
+    display: grid; /* Grid ensures proper spacing between items */
+    grid-auto-flow: column; /* Arrange items in a single horizontal row */
+    grid-auto-columns: 320px; /* Match the new card width */
+    gap: 15px; /* Adjust space between cards */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    white-space: nowrap; /* Prevent wrapping of cards */
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Hide scrollbars */
+}
+
+.music-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for better aesthetics */
+}
+
+
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: -20px;
+}
+
+.scroll-btn.right {
+    right: calc(2% + 70px); /* Adjust dynamically */
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.8); /* Highlight scroll button on hover */
+}
+
+.music-card {
+    width: 350px; /* Same dimensions for consistent layout */
+    height: 550px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 350px; /* Prevent cards from shrinking */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row; /* Vertical layout for card content */
+}
+
+.music-image {
+    width: 100%;
+    height: 200px; /* Maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.music-details {
+    padding: 8px;
+    text-align: center;
+    font-size: 14px; /* Text size for readability */
+    line-height: 1.4; /* Line spacing for better clarity */
+}
+
+.music-title {
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Ellipsis for truncated titles */
+}
+
+.music-rating {
+    background: black;
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 5px;
+}
