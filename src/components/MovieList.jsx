@@ -43,6 +43,7 @@ const MovieList = () => {
 
   return (
     <div className="movie-list">
+        <div className="movielist-wrapper">
       <h2 className="section-heading">Now In Theaters</h2>
       <div className="movie-scroll-container">
         <button className="scroll-btn left" onClick={scrollLeft}>‹</button>
@@ -53,6 +54,7 @@ const MovieList = () => {
         </div>
         <button className="scroll-btn right" onClick={scrollRight}>›</button>
       </div>
+    </div>
     </div>
   );
 };

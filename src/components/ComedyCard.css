@@ -1,0 +1,28 @@
+.comedy-card {
+    width: 180px; /* Same width as movie-card */
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Maintain consistent styling */
+}
+
+.comedy-card img {
+    width: 100%; /* Full width for images */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.comedy-details {
+    padding: 10px; /* Padding around text */
+    text-align: center; /* Center-align text */
+}
+
+.comedy-details h3 {
+    margin: 10px 0;
+    font-size: 1.2em; /* Consistent font size */
+}
+
+.comedy-details p {
+    margin: 5px 0;
+    font-size: 0.9em; /* Keep text legible and compact */
+}

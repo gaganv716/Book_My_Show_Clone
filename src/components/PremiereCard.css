@@ -1,0 +1,57 @@
+.premiere-card {
+    width: 250px;
+    height: 450px; /* Adjust height to cover full card */
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: transparent; /* Remove background color */
+    position: relative;
+    flex-shrink: 0;
+}
+
+.premiere-card img {
+    width: 100%;
+    height: 100%; /* Ensure full coverage */
+    object-fit: cover; /* Cover the whole card */
+}
+
+.premiere-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2; /* Keep it above the image */
+}
+
+.premiere-details {
+    padding: 8px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Add slight dark overlay if needed */
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.premiere-details h3 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.premiere-details p {
+    margin: 4px 0;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.premiere-details {
+    font-family: 'Arial', sans-serif;
+    unicode-bidi: plaintext;
+}

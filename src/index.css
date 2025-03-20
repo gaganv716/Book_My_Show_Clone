@@ -1,3 +1,7 @@
+/* Add this to the top of index.css */
+@import "/node_modules/slick-carousel/slick/slick.css";
+@import "/node_modules/slick-carousel/slick/slick-theme.css";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -65,4 +69,27 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+.section-container {
+  max-width: 1200px; /* Restrict content width */
+  margin: 0 auto; /* Center content horizontally */
+  padding: 0 15px; /* Add horizontal padding for responsiveness */
+}
+
+.container {
+  width: 100vw;
+  max-width: 100%; /* Ensure no unnecessary restrictions */
+  margin: 0; /* Remove gaps */
+  padding: 0; /* Remove extra padding */
+}
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+#root, .App {
+  margin: 0;
+  padding: 0;
+  width: 100vw; /* Ensure the root container spans the full width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }

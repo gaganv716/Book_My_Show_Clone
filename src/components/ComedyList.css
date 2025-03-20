@@ -1,0 +1,107 @@
+.comedy-list {
+  padding: 20px; /* Matches movie-list */
+}
+
+.section-heading {
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  color: #000000; /* Keep heading consistent */
+  margin: 40px 0 20px 0;
+}
+
+.comedy-scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.comedy-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+}
+
+.comedy-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.scroll-btn.left {
+  left: -20px;
+}
+
+.scroll-btn.right {
+  right: calc(2% + 70px); /* Adjust dynamically */
+}
+
+.scroll-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.comedy-card {
+  width: 300px;
+  height: 500px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.comedy-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.comedy-details {
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.comedy-title {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.comedy-rating {
+  background: #000000; /* A playful color for comedy ratings */
+  color: rgb(255, 255, 255);
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-top: 5px;
+}

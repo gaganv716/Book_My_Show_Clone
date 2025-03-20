@@ -111,3 +111,58 @@
     font-size: 12px; /* Keep the font small and clear */
     margin-top: 5px;
 }
+
+
+/* ✅ Premiere Section Styling */
+.premiere-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.premiere-icon {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.premiere-text h2 {
+    font-size: 24px;
+    color: white;
+    margin: 0;
+}
+
+.premiere-text p {
+    font-size: 14px;
+    color: #ccc;
+    margin: 0;
+}
+
+.premiere-section {
+    background-color: #1b1b32;
+    padding: 20px;
+    color: white;
+}
+
+.premiere-heading {
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    font-size: 36px;
+    color: #ffffff;
+    margin: 40px 0 20px;
+}
+.premiere-section {
+    background-color: #1b1b32;
+    padding: 2rem 0;
+  }
+
+.premiere-background {
+    background-color: #1b1b32; /* Replace with your desired color */
+    width: 100%; /* Full width of the screen */
+  }
+  
