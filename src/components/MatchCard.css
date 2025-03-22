@@ -1,0 +1,24 @@
+.match-card {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+  }
+  
+  .match-teams {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .match-details {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .match-details p {
+    margin: 5px 0;
+  }
+  

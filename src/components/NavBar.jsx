@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, Container, Form, FormControl, Button, Dropdown } from "react-bootstrap";
 import { FaUser, FaMapMarkerAlt, FaBars } from "react-icons/fa";
 import "./NavBar.css";
-
+import LoginModal from "./LoginModal";
 const NavBar = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       {/* First Div - Top Section */}
@@ -32,20 +33,15 @@ const NavBar = () => {
               </Dropdown.Menu>
             </Dropdown>
 
-            <Button variant="light" className="login-btn">
-              <FaUser /> Login
-            </Button>
+            <div className="app-container">
+      <Button variant="danger" onClick={() => setShowModal(true)}>
+        Login / Register
+      </Button>
 
-            <Dropdown className="profile-dropdown">
-              <Dropdown.Toggle variant="light">
-                <FaBars size={22} /> {/* Three-line icon */}
-              </Dropdown.Toggle>
-              <Dropdown.Menu align="end">
-                <Dropdown.Item href="#">Profile</Dropdown.Item>
-                <Dropdown.Item href="#">Bookings</Dropdown.Item>
-                <Dropdown.Item href="#">Logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+      <LoginModal show={showModal} handleClose={() => setShowModal(false)} />
+    </div>
+
+           
           </div>
         </Container>
       </div>
