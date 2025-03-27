@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { Offcanvas, Button, ListGroup } from "react-bootstrap";
 import { FaBell, FaTicketAlt, FaFilm, FaCreditCard, FaGift, FaCog } from "react-icons/fa";
+import LoginModal from "./LoginModal"; // Import the LoginModal component
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false); // State for Login Modal
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const toggleLogin = () => setIsLoggedIn(!isLoggedIn);
+
+  // ✅ Open login modal and close sidebar for smooth transition
+  const handleLoginClick = () => {
+    setShow(false); // Close sidebar
+    setTimeout(() => setShowLoginModal(true), 300); // Delay to ensure smooth transition
+  };
 
   return (
     <>
@@ -40,16 +48,15 @@ const Sidebar = () => {
               </Button>
             ) : (
               <Button
-  onClick={toggleLogin}
-  style={{
-    backgroundColor: "#9c1c1c", // ✅ Brick red color
-    borderColor: "#9c1c1c",
-    color: "#fff", // ✅ White text color for better contrast
-  }}
->
-  Login / Register
-</Button>
-
+                onClick={handleLoginClick}
+                style={{
+                  backgroundColor: "#9c1c1c", // ✅ Brick red color
+                  borderColor: "#9c1c1c",
+                  color: "#fff", // ✅ White text color for better contrast
+                }}
+              >
+                Login / Register
+              </Button>
             )}
           </div>
 
@@ -80,6 +87,14 @@ const Sidebar = () => {
           </ListGroup>
         </Offcanvas.Body>
       </Offcanvas>
+
+      {/* ✅ Login Modal */}
+      <LoginModal
+        show={showLoginModal}
+        handleClose={() => setShowLoginModal(false)}
+        handleSignUp={() => console.log("Redirect to Sign Up")}
+        handleForgotPassword={() => console.log("Redirect to Forgot Password")}
+      />
     </>
   );
 };
