@@ -1,0 +1,88 @@
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+  }
+  
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .section {
+    width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .section h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .section ul li {
+    margin: 5px 0;
+  }
+  
+  .section ul li a {
+    color: #bbb;
+    text-decoration: none;
+  }
+  
+  .section ul li a:hover {
+    color: #fff;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .form button {
+    padding: 10px;
+    background: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .form button:hover {
+    background: darkred;
+  }
+  
+  .socialMedia {
+    text-align: center;
+  }
+  
+  .icons a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .icons a:hover {
+    color: red;
+  }
+  
+  .copyRight {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+  
