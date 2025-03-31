@@ -39,10 +39,10 @@ export const protect = async (req, res, next) => {
 /**
  * Middleware for Admin Access Control
  */
-export const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
-    next();
+export const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    next(); // ✅ User is admin, continue
   } else {
-    res.status(403).json({ message: "Access denied, Admin only" });
+    res.status(403).json({ message: "Access Denied. Admins only!" });
   }
 };
