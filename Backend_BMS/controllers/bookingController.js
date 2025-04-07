@@ -1,6 +1,8 @@
 import Booking from "../models/Booking.js";
 import Movie from "../models/Movie.js";
 import sendEmail from "../utils/sendEmail.js";
+import mongoose from "mongoose";
+
 
 /**
  * ✅ Check seat availability for a movie and time slot
@@ -9,23 +11,32 @@ export const checkSeatAvailability = async (req, res) => {
   try {
     const { movieId, date, time } = req.body;
 
-    // Check if the movie exists
     const movie = await Movie.findById(movieId);
-    if (!movie) {
-      return res.status(404).json({ message: "Movie not found" });
+    if (!movie) return res.status(404).json({ message: "Movie not found" });
+
+    // Find the correct show
+    const show = movie.shows.find(
+      s => s.date.toISOString().split('T')[0] === date && s.time === time
+    );
+
+    if (!show) {
+      return res.status(404).json({ message: "Show not found for the given date and time" });
     }
 
-    // Fetch all bookings for the given movie, date, and time
-    const bookedSeats = await Booking.find({ movieId, date, time }).select("seatNumbers");
+    // Get booked seats for the show
+    const bookings = await Booking.find({ movieId, date, time }).select("seatNumbers");
+    const reservedSeats = bookings.flatMap(b => b.seatNumbers);
 
-    // Extract booked seat numbers
-    const reservedSeats = bookedSeats.flatMap(booking => booking.seatNumbers);
+    // Assume seat labels like A1 to A(totalSeats), unless you're using a seat map
+    const totalSeatLabels = Array.from({ length: show.totalSeats }, (_, i) => `A${i + 1}`);
+    const availableSeats = totalSeatLabels.filter(seat => !reservedSeats.includes(seat));
 
-    res.status(200).json({ availableSeats: movie.totalSeats.filter(seat => !reservedSeats.includes(seat)) });
+    res.status(200).json({ availableSeats });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 /**
  * ✅ Book seats for a user, preventing double booking
@@ -34,38 +45,54 @@ export const bookSeats = async (req, res) => {
   try {
     const { movieId, userId, seatNumbers, date, time } = req.body;
 
-    // Validate input
     if (!movieId || !userId || !seatNumbers.length || !date || !time) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if the movie exists
     const movie = await Movie.findById(movieId);
-    if (!movie) {
-      return res.status(404).json({ message: "Movie not found" });
+    if (!movie) return res.status(404).json({ message: "Movie not found" });
+
+    const show = movie.shows.find(
+      s => s.date.toISOString().split('T')[0] === date && s.time === time
+    );
+
+    if (!show) {
+      return res.status(404).json({ message: "Show not found for the given date and time" });
     }
 
-    // Check if requested seats are already booked
-    const existingBookings = await Booking.find({ movieId, date, time, seatNumbers: { $in: seatNumbers } });
+    const existingBookings = await Booking.find({
+      movieId,
+      date,
+      time,
+      seatNumbers: { $in: seatNumbers },
+    });
 
     if (existingBookings.length > 0) {
-      return res.status(400).json({ message: "Some seats are already booked. Please choose different seats." });
+      return res.status(400).json({
+        message: "Some seats are already booked. Please choose different seats.",
+      });
     }
 
-    // Create a new booking
     const newBooking = new Booking({
       userId,
       movieId,
       seatNumbers,
       date,
       time,
-      status: "Confirmed"
+      status: "Confirmed",
     });
 
     await newBooking.save();
 
-    // Send confirmation email
-    await sendEmail(userId, "Booking Confirmation", `Your seats ${seatNumbers.join(", ")} for ${movie.title} have been booked successfully!`);
+    // Optionally update availableSeats in the show (not mandatory if you're calculating dynamically)
+    show.availableSeats -= seatNumbers.length;
+    await movie.save();
+
+    await sendEmail(
+      userId,
+      "Booking Confirmation",
+      `Your seats ${seatNumbers.join(", ")} for ${movie.title} at ${time} have been booked successfully!`
+    );
 
     res.status(201).json({ message: "Booking successful", booking: newBooking });
   } catch (error) {
@@ -73,32 +100,42 @@ export const bookSeats = async (req, res) => {
   }
 };
 
+
 /**
  * ✅ Cancel a booking and release seats
  */
 export const cancelBooking = async (req, res) => {
   try {
-    const { bookingId, userId } = req.body;
+    const bookingId = req.params.bookingId.trim();
+    const userId = req.user._id; // authenticated user
 
-    // Find the booking
+    if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+      return res.status(400).json({ message: "Invalid booking ID" });
+    }
+
     const booking = await Booking.findById(bookingId);
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
 
-    // Ensure the user is the owner of the booking
-    if (booking.userId.toString() !== userId) {
+    // Check if user owns the booking
+    console.log(booking.userId.toString())
+    console.log(userId.toString())
+    if (booking.userId.toString() !== userId.toString()) {
       return res.status(403).json({ message: "Unauthorized action" });
     }
 
-    // Delete the booking
     await Booking.findByIdAndDelete(bookingId);
 
-    // Send cancellation email
-    await sendEmail(userId, "Booking Cancellation", `Your booking for seats ${booking.seatNumbers.join(", ")} has been cancelled.`);
+    await sendEmail(
+      userId,
+      "Booking Cancellation",
+      `Your booking for seats ${booking.seatNumbers.join(", ")} has been cancelled.`
+    );
 
     res.status(200).json({ message: "Booking cancelled successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
