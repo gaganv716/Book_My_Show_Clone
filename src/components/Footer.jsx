@@ -1,64 +1,91 @@
+// src/components/Footer.jsx
 import React from "react";
-import styles from "./Footer.css";
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import "./Footer.css";
+import { FaFacebookF, FaInstagram, FaYoutube, FaPinterestP, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-
-        {/* Logo and Description */}
-        <div className={styles.section}>
-          <h2>BookMyShow</h2>
-          <p>Your one-stop destination for movies, events, and entertainment.</p>
+    <footer className="footer">
+      {/* Top Contact Section */}
+      <div className="footer-top">
+        <div className="footer-contact-text">
+          <p className="footer-heading">List your Show</p>
+          <p className="footer-subtext">
+            Got a show, event, activity or a great experience? Partner with us & get listed on GAP_InfoTech
+          </p>
         </div>
-
-        {/* Links Section */}
-        <div className={styles.section}>
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">FAQs</a></li>
-          </ul>
-        </div>
-
-        {/* Support Section */}
-        <div className={styles.section}>
-          <h3>Support</h3>
-          <ul>
-            <li><a href="#">Help Center</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Refund Policy</a></li>
-          </ul>
-        </div>
-
-        {/* Newsletter Subscription */}
-        <div className={styles.section}>
-          <h3>Subscribe to Updates</h3>
-          <form className={styles.form}>
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
-
-        {/* Social Media Icons */}
-        <div className={styles.socialMedia}>
-          <h3>Follow Us</h3>
-          <div className={styles.icons}>
-            <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-            <a href="#" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#" aria-label="YouTube"><FaYoutube /></a>
-          </div>
-        </div>
-
+        <button className="footer-btn">Contact today!</button>
       </div>
 
-      <div className={styles.copyRight}>
-        <p>© 2025 BookMyShow. All Rights Reserved.</p>
+      {/* Icons Section */}
+      <div className="footer-icons">
+        <div className="footer-icon-box">
+          <div className="icon">👤</div>
+          <p>24/7 CUSTOMER CARE</p>
+        </div>
+        <div className="footer-icon-box">
+          <div className="icon">🎟️</div>
+          <p>RESEND BOOKING CONFIRMATION</p>
+        </div>
+        <div className="footer-icon-box">
+          <div className="icon">📧</div>
+          <p>SUBSCRIBE TO THE NEWSLETTER</p>
+        </div>
+      </div>
+
+      {/* Links Section */}
+      <div className="footer-grid">
+        <div className="footer-block">
+          <h3 className="footer-subheading">MOVIES NOW SHOWING IN BENGALURU</h3>
+          <p className="footer-text">
+            Good Bad Ugly | Sikandar | L2: Empuraan | Mad Square | A Minecraft Movie | Vaamana | Veera Dheera Sooran - Part 2 | Vidyapati | Jack | Manada Kadalu
+          </p>
+        </div>
+
+        <div className="footer-block">
+          <h3 className="footer-subheading">UPCOMING MOVIES IN BENGALURU</h3>
+          <p className="footer-text">
+            Ashi Hi Jamva Jamvi | Kaiju No.8: Mission Recon | Akaal | The Amateur | Killbill Society | Jay Bhim Panther | Dustbin | Premaku Jai (True Love Never Ends) | Akkada Ammayi Ikkada Abbayi | Puratawn - The Ancient
+          </p>
+        </div>
+
+        <div className="footer-block">
+          <h3 className="footer-subheading">MOVIES BY GENRE</h3>
+          <p className="footer-text">
+            Drama Movies | Action Movies | Thriller Movies | Comedy Movies | Romantic Movies | Family Movies | Adventure Movies | Sports Movies | Musical Movies | Crime Movies
+          </p>
+        </div>
+
+        <div className="footer-block">
+          <h3 className="footer-subheading">MOVIES BY LANGUAGE</h3>
+          <p className="footer-text">
+            Movies in English | Movies in Kannada | Movies in Hindi | Movies in Telugu | Movies in Tamil | Movies in Malayalam
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom Divider & Social Icons */}
+      <hr className="footer-divider" />
+      <div className="footer-bottom">
+        <h1 className="footer-logo">
+          <span className="text-red-500">GAP_</span>InfoTech
+        </h1>
+
+        <div className="footer-social-icons">
+          <span className="social-icon"><FaFacebookF /></span>
+          <span className="social-icon"><FaTwitter /></span>
+          <span className="social-icon"><FaInstagram /></span>
+          <span className="social-icon"><FaYoutube /></span>
+          <span className="social-icon"><FaPinterestP /></span>
+          <span className="social-icon"><FaLinkedinIn /></span>
+        </div>
+
+        <p className="footer-copy">
+          Copyright &copy; 2025 GAP^InfoTech Pvt. Ltd. All Rights Reserved.
+        </p>
+        <p className="footer-disclaimer">
+          The content and images used on this site are copyright protected and copyrights vest with the respective owners. The usage of the content and images on this website is intended to promote the works and no endorsement of the artist shall be implied. Unauthorized use is prohibited and punishable by law.
+        </p>
       </div>
     </footer>
   );

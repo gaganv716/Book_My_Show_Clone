@@ -1,5 +1,6 @@
 import React from "react";
-import NavBar from "../components/Navbar";
+import { Container, Navbar, Form, FormControl, Dropdown, Nav } from "react-bootstrap";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
 import CarouselComponent from "../components/CarouselComponent";
 import MovieList from "../components/MovieList";
@@ -10,10 +11,52 @@ import MusicMoviesList from "../components/MusicMoviesList";
 import TrendingSearches from "../components/TrendingSearches";
 import Footer from "../components/Footer"; // ✅ Import Footer
 
-const Home = () => {
+const Dashboard = () => {
   return (
     <>
-      <NavBar />
+    <React.Fragment>
+       <div className="top-nav">
+        <Container className="d-flex align-items-center justify-content-between">
+          {/* Logo and Search Bar */}
+          <div className="left-section">
+            <Navbar.Brand href="/" className="logo">
+              GAP<sup>^</sup>InfoTech
+            </Navbar.Brand>
+            <Form className="search-bar">
+              <FormControl type="search" placeholder="Search movies, events..." />
+            </Form>
+          </div>
+
+          {/* Right Section - Location, Login, Three-line Dropdown */}
+          <div className="right-section">
+            <Dropdown className="location-dropdown">
+              <Dropdown.Toggle variant="light">
+                <FaMapMarkerAlt /> Select Location
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#">Bangalore</Dropdown.Item>
+                <Dropdown.Item href="#">Mumbai</Dropdown.Item>
+                <Dropdown.Item href="#">Delhi</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+           
+          </div>
+        </Container>
+      </div>
+
+      {/* Second Div - Bottom Navigation */}
+      <Navbar className="bottom-nav">
+        <Container>
+          <Nav className="mx-auto">
+            <Nav.Link href="/movies">Movies</Nav.Link>
+            <Nav.Link href="/stream">Stream</Nav.Link>
+            <Nav.Link href="/events">Events</Nav.Link>
+            <Nav.Link href="/plays">Plays</Nav.Link>
+            <Nav.Link href="/sports">Sports</Nav.Link>
+            <Nav.Link href="/activities">Activities</Nav.Link>
+          </Nav>
+        </Container>
+        </Navbar>
       <div className="flex">
         <Sidebar />
         <div className="flex-1">
@@ -67,8 +110,9 @@ const Home = () => {
 
       {/* ✅ Footer Section */}
       <Footer />
+    </React.Fragment>
     </>
   );
 };
 
-export default Home;
+export default Dashboard;
