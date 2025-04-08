@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/Navbar";
-import Sidebar from "../components/Sidebar"; // ✅ Import Slidebar
+import NavBar from "../components/NavBar";
+import Sidebar from "../components/Sidebar";
 import CarouselComponent from "../components/CarouselComponent";
 import MovieList from "../components/MovieList";
 import LiveEvents from "../components/LiveEvents";
@@ -8,16 +8,14 @@ import PremieresList from "../components/PremieresList";
 import ComedyList from "../components/ComedyList";
 import MusicMoviesList from "../components/MusicMoviesList";
 import TrendingSearches from "../components/TrendingSearches";
+import Footer from "../components/Footer"; // ✅ Import Footer
 
 const Home = () => {
   return (
     <>
       <NavBar />
       <div className="flex">
-        {/* ✅ Slidebar as a fixed side navigation */}
         <Sidebar />
-        
-        {/* Main Content */}
         <div className="flex-1">
           <div className="container mt-4">
             <CarouselComponent />
@@ -66,6 +64,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      {/* ✅ Footer Section */}
+      <Footer />
     </>
   );
 };
