@@ -3,8 +3,30 @@ import { Navbar, Nav, Container, Form, FormControl, Button, Dropdown } from "rea
 import { FaUser, FaMapMarkerAlt, FaBars } from "react-icons/fa";
 import "./NavBar.css";
 import LoginModal from "./LoginModal";
+import SignUpModal from "./SignUpModal"; // ✅ import it
+
+
+
+
 const NavBar = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+// Handlers for switching between modals
+const handleOpenLogin = () => {
+  setShowLoginModal(true);
+  setShowSignUpModal(false);
+};
+
+const handleOpenSignUp = () => {
+  setShowLoginModal(false);
+  setShowSignUpModal(true);
+};
+
+const handleCloseModals = () => {
+  setShowLoginModal(false);
+  setShowSignUpModal(false);
+};
   return (
     <>
       {/* First Div - Top Section */}
@@ -34,11 +56,21 @@ const NavBar = () => {
             </Dropdown>
 
             <div className="app-container">
-      <Button variant="danger" onClick={() => setShowModal(true)}>
+      <Button variant="danger" onClick={() => handleOpenLogin()}>
         Login / Register
       </Button>
 
-      <LoginModal show={showModal} handleClose={() => setShowModal(false)} />
+      <LoginModal 
+  show={showLoginModal} 
+  handleClose={handleCloseModals} 
+  handleSignUp={handleOpenSignUp} 
+/>
+
+<SignUpModal 
+  show={showSignUpModal} 
+  handleClose={handleCloseModals} 
+  handleLogin={handleOpenLogin} 
+/>
     </div>
 
            

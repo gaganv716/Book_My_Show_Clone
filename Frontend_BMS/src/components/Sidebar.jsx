@@ -1,58 +1,85 @@
 import React, { useState } from "react";
 import { Offcanvas, Button, ListGroup } from "react-bootstrap";
 import { FaBell, FaTicketAlt, FaFilm, FaCreditCard, FaGift, FaCog } from "react-icons/fa";
-import LoginModal from "./LoginModal"; // Import the LoginModal component
+import LoginModal from "./LoginModal";
+import SignUpModal from "./SignUpModal"; // ✅ New import
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // State for Login Modal
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const toggleLogin = () => setIsLoggedIn(!isLoggedIn);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false); // ✅ SignUp modal state
 
-  // ✅ Open login modal and close sidebar for smooth transition
+  const handleCloseSidebar = () => setShow(false);
+  const handleShowSidebar = () => setShow(true);
+
+  // ✅ Open Login Modal with smooth sidebar close
   const handleLoginClick = () => {
-    setShow(false); // Close sidebar
-    setTimeout(() => setShowLoginModal(true), 300); // Delay to ensure smooth transition
+    setShow(false);
+    setTimeout(() => setShowLoginModal(true), 300);
+  };
+
+  // ✅ Switch to SignUp from Login
+  const handleSignUpClick = () => {
+    setShowLoginModal(false);
+    setShowSignUpModal(true);
+  };
+
+  // ✅ Close both modals
+  const handleCloseModals = () => {
+    setShowLoginModal(false);
+    setShowSignUpModal(false);
+  };
+
+  // ✅ After successful login
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    handleCloseModals();
+  };
+
+  // ✅ Logout
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    handleCloseSidebar();
   };
 
   return (
     <>
-      {/* ✅ Hide the button once clicked */}
+      {/* ✅ Show Menu button only when sidebar is hidden */}
       {!show && (
         <Button
           className="menu-btn"
-          onClick={handleShow}
+          onClick={handleShowSidebar}
           style={{
-            backgroundColor: "#9c1c1c", // ✅ Brick red color
+            backgroundColor: "#9c1c1c",
             borderColor: "#9c1c1c",
-            color: "#fff", // White text color for contrast
+            color: "#fff",
           }}
         >
           ☰ Menu
         </Button>
       )}
 
-      <Offcanvas show={show} onHide={handleClose} placement="end" className="sidebar">
+      {/* ✅ Sidebar */}
+      <Offcanvas show={show} onHide={handleCloseSidebar} placement="end" className="sidebar">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Hey!</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="login-section">
+          <div className="login-section mb-3">
             {isLoggedIn ? (
-              <Button variant="secondary" onClick={toggleLogin}>
+              <Button variant="secondary" onClick={handleLogout}>
                 Logout
               </Button>
             ) : (
               <Button
                 onClick={handleLoginClick}
                 style={{
-                  backgroundColor: "#9c1c1c", // ✅ Brick red color
+                  backgroundColor: "#9c1c1c",
                   borderColor: "#9c1c1c",
-                  color: "#fff", // ✅ White text color for better contrast
+                  color: "#fff",
                 }}
               >
                 Login / Register
@@ -91,9 +118,20 @@ const Sidebar = () => {
       {/* ✅ Login Modal */}
       <LoginModal
         show={showLoginModal}
-        handleClose={() => setShowLoginModal(false)}
-        handleSignUp={() => console.log("Redirect to Sign Up")}
+        handleClose={handleCloseModals}
+        handleSignUp={handleSignUpClick}
         handleForgotPassword={() => console.log("Redirect to Forgot Password")}
+        onLoginSuccess={handleLoginSuccess}
+      />
+
+      {/* ✅ SignUp Modal */}
+      <SignUpModal
+        show={showSignUpModal}
+        handleClose={handleCloseModals}
+        handleLogin={() => {
+          setShowSignUpModal(false);
+          setShowLoginModal(true);
+        }}
       />
     </>
   );
