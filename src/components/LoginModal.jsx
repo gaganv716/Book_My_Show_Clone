@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const LoginModal = ({ show, handleClose, handleSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // ✅ Email validation
   const isValidEmail = email.trim().length > 0 && email.includes("@");
 
   // ✅ Password validation (at least 6 characters)
   const isValidPassword = password.length >= 6;
+
+  // ✅ Reset form and submission state
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+    setIsSubmitting(false);
+  };
+
+  // ✅ Close modal and reset form
+  const handleCloseAndReset = () => {
+    resetForm();
+    handleClose();
+  };
+
+  // ✅ Switch to SignUp modal
+  const handleSwitchToSignUp = () => {
+    resetForm();
+    handleClose(); // Close current modal
+    handleSignUp(); // Open sign-up modal
+  };
 
   // ✅ Handle Login submission
   const handleSubmit = (e) => {
@@ -22,14 +44,19 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
       // Simulate API call
       setTimeout(() => {
         console.log("Login Successful with:", { email, password });
-        setIsSubmitting(false);
-        handleClose(); // Close modal after submission
+        handleCloseAndReset(); // Reset and close modal after successful login
+        navigate("/dashboard"); // Redirect to Dashboard
       }, 1000);
     }
   };
 
+  // Optional: Reset form when modal is closed manually
+  useEffect(() => {
+    if (!show) resetForm();
+  }, [show]);
+
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={handleCloseAndReset} centered>
       <Modal.Header closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
@@ -84,15 +111,12 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
           </Button>
         </Form>
 
-        {/* ✅ Sign Up Button (Linked to SignUpModal) */}
+        {/* ✅ Sign Up Button (Switch Modals) */}
         <p className="text-center mt-3">
           Don't have an account?{" "}
           <span
             style={{ color: "#9c1c1c", cursor: "pointer", fontWeight: "bold" }}
-            onClick={() => {
-              handleClose(); // Close LoginModal
-              handleSignUp(); // Open SignUpModal
-            }}
+            onClick={handleSwitchToSignUp}
           >
             Sign Up
           </span>

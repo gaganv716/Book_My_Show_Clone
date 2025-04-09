@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Navbar, Nav, Container, Form, FormControl, Button, Dropdown } from "react-bootstrap";
-import { FaUser, FaMapMarkerAlt, FaBars } from "react-icons/fa";
+import { Navbar, Nav, Container, Form, FormControl, Dropdown } from "react-bootstrap";
+import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 import "./NavBar.css";
 import LoginModal from "./LoginModal";
-const NavBar = () => {
+
+const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLoggedIn = false }) => {
   const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       {/* First Div - Top Section */}
@@ -20,28 +22,41 @@ const NavBar = () => {
             </Form>
           </div>
 
-          {/* Right Section - Location, Login, Three-line Dropdown */}
+          {/* Right Section - Conditional Controls */}
           <div className="right-section">
-            <Dropdown className="location-dropdown">
-              <Dropdown.Toggle variant="light">
-                <FaMapMarkerAlt /> Select Location
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#">Bangalore</Dropdown.Item>
-                <Dropdown.Item href="#">Mumbai</Dropdown.Item>
-                <Dropdown.Item href="#">Delhi</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {showDashboardControls && (
+              <>
+                <Dropdown className="location-dropdown">
+                  <Dropdown.Toggle variant="light">
+                    <FaMapMarkerAlt /> Select Location
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#">Bangalore</Dropdown.Item>
+                    <Dropdown.Item href="#">Mumbai</Dropdown.Item>
+                    <Dropdown.Item href="#">Delhi</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
 
-            <div className="app-container">
-      <Button variant="danger" onClick={() => setShowModal(true)}>
-        Login / Register
-      </Button>
+                {!isLoggedIn && (
+                  <div className="app-container">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Login / Register
+                    </button>
+                    <LoginModal show={showModal} handleClose={() => setShowModal(false)} />
+                  </div>
+                )}
+              </>
+            )}
 
-      <LoginModal show={showModal} handleClose={() => setShowModal(false)} />
-    </div>
-
-           
+            {/* Profile Icon for Logged-In Users */}
+            {isLoggedIn && showProfileIcon && (
+              <div className="profile-icon">
+                <FaUserCircle size={28} />
+              </div>
+            )}
           </div>
         </Container>
       </div>

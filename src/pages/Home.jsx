@@ -13,7 +13,7 @@ import Footer from "../components/Footer"; // ✅ Import Footer
 const Home = () => {
   return (
     <>
-      <NavBar />
+      <NavBar showDashboardControls={true} />
       <div className="flex">
         <Sidebar />
         <div className="flex-1">

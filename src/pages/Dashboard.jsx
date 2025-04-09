@@ -1,6 +1,6 @@
-import React from "react";
-import { Container, Navbar, Form, FormControl, Dropdown, Nav } from "react-bootstrap";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import { Container, Navbar, Nav, Form, FormControl, Dropdown } from "react-bootstrap";
+import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
 import CarouselComponent from "../components/CarouselComponent";
 import MovieList from "../components/MovieList";
@@ -12,39 +12,53 @@ import TrendingSearches from "../components/TrendingSearches";
 import Footer from "../components/Footer"; // ✅ Import Footer
 
 const Dashboard = () => {
+  const [isLoggedIn] = useState(true); // Simulating logged-in state
+
+  // ✅ Define missing flags to avoid crash
+  const showDashboardControls = true;
+  const showProfileIcon = true;
+
   return (
     <>
-    <React.Fragment>
-       <div className="top-nav">
+      {/* Top Nav */}
+      <div className="top-nav">
         <Container className="d-flex align-items-center justify-content-between">
           {/* Logo and Search Bar */}
-          <div className="left-section">
+          <div className="left-section d-flex align-items-center gap-3">
             <Navbar.Brand href="/" className="logo">
               GAP<sup>^</sup>InfoTech
             </Navbar.Brand>
-            <Form className="search-bar">
+            <Form className="search-bar d-flex">
               <FormControl type="search" placeholder="Search movies, events..." />
             </Form>
           </div>
 
-          {/* Right Section - Location, Login, Three-line Dropdown */}
-          <div className="right-section">
-            <Dropdown className="location-dropdown">
-              <Dropdown.Toggle variant="light">
-                <FaMapMarkerAlt /> Select Location
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#">Bangalore</Dropdown.Item>
-                <Dropdown.Item href="#">Mumbai</Dropdown.Item>
-                <Dropdown.Item href="#">Delhi</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-           
+          {/* Right Section - Conditional Controls */}
+          <div className="right-section d-flex align-items-center gap-3">
+            {showDashboardControls && (
+              <Dropdown className="location-dropdown">
+                <Dropdown.Toggle variant="light">
+                  <FaMapMarkerAlt /> Select Location
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#">Bangalore</Dropdown.Item>
+                  <Dropdown.Item href="#">Mumbai</Dropdown.Item>
+                  <Dropdown.Item href="#">Delhi</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
+
+            {/* Profile Icon for Logged-In Users */}
+            {isLoggedIn && showProfileIcon && (
+              <div className="profile-icon">
+                <FaUserCircle size={28} />
+              </div>
+            )}
           </div>
         </Container>
       </div>
 
-      {/* Second Div - Bottom Navigation */}
+      {/* Bottom Navigation */}
       <Navbar className="bottom-nav">
         <Container>
           <Nav className="mx-auto">
@@ -56,7 +70,9 @@ const Dashboard = () => {
             <Nav.Link href="/activities">Activities</Nav.Link>
           </Nav>
         </Container>
-        </Navbar>
+      </Navbar>
+
+      {/* Main Layout */}
       <div className="flex">
         <Sidebar />
         <div className="flex-1">
@@ -64,42 +80,37 @@ const Dashboard = () => {
             <CarouselComponent />
           </div>
 
-          {/* Now Showing Section */}
+          {/* Sections */}
           <div className="movielist min-h-screen bg-gray-900 text-white p-6 flex items-center justify-center">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <MovieList />
             </div>
           </div>
 
-          {/* The Best of Live Events Section */}
           <div className="bg-gray-800 text-white p-6 mt-8">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <LiveEvents />
             </div>
           </div>
 
-          {/* Premieres Section */}
           <div className="premiere-background">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <PremieresList />
             </div>
           </div>
 
-          {/* Your Laughter Capsule */}
           <div className="movielist min-h-screen bg-gray-900 text-white p-6 flex items-center justify-center">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <ComedyList />
             </div>
           </div>
 
-          {/* Your Music Studio */}
           <div className="movielist min-h-screen bg-gray-900 text-white p-6 flex items-center justify-center">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <MusicMoviesList />
             </div>
           </div>
 
-          {/* Trending */}
           <div className="movielist min-h-screen bg-gray-900 text-white p-6 flex items-center justify-center">
             <div className="container mx-auto px-4 md:px-12 my-8">
               <TrendingSearches />
@@ -108,9 +119,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* ✅ Footer Section */}
       <Footer />
-    </React.Fragment>
     </>
   );
 };
