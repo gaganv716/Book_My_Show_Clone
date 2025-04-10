@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useParams, useLocation, useNavigate } from "react-router-dom"; // Import useLocation for posterUrl
 import Footer from "../components/Footer"; // ✅ Import Footer component
 import "./TheaterList.css"; // Add CSS file for styling
 import { Container, Form, FormControl, Navbar, Dropdown, Nav } from "react-bootstrap";
-import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa"; // Dashboard Navbar Icons
+import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 
 const TheaterList = () => {
   const { movieId } = useParams();
-  const navigate = useNavigate(); // Initialize useNavigate for routing
+  const { state } = useLocation(); // Retrieve state passed from MovieDetails
+  const navigate = useNavigate();
+
   const [theaters, setTheaters] = useState([]);
-  const [upcomingDates, setUpcomingDates] = useState([]); // Use state for dates
-  const [selectedDate, setSelectedDate] = useState(null); // Track selected date
-  const showDashboardControls = true; // Dashboard specific controls
-  const isLoggedIn = true; // Simulate logged-in state
-  const showProfileIcon = true; // Display profile icon
+  const [upcomingDates, setUpcomingDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const posterUrl = state?.posterUrl || ""; // Extract posterUrl from state
+
+  const showDashboardControls = true;
+  const isLoggedIn = true;
+  const showProfileIcon = true;
 
   // Generate upcoming dates dynamically
   useEffect(() => {
@@ -115,8 +120,15 @@ const TheaterList = () => {
   }, [movieId]);
 
   const handleShowtimeClick = (theaterName, showtime) => {
-    // Navigate to Seat Selection Page with selected theater and showtime details
-    navigate(`/seat-selection`, { state: { theaterName, showtime, selectedDate } });
+    // Navigate to Seat Selection Page with selected theater, showtime, and poster details
+    navigate(`/seat-selection`, {
+      state: {
+        theaterName,
+        showtime,
+        selectedDate,
+        posterUrl, // Pass poster URL to SeatSelectionPage
+      },
+    });
   };
 
   return (
@@ -124,7 +136,6 @@ const TheaterList = () => {
       {/* Top Dashboard Navbar */}
       <div className="top-nav">
         <Container className="d-flex align-items-center justify-content-between">
-          {/* Logo and Search Bar */}
           <div className="left-section d-flex align-items-center gap-3">
             <Navbar.Brand href="/" className="logo">
               GAP<sup>^</sup>InfoTech
@@ -134,7 +145,6 @@ const TheaterList = () => {
             </Form>
           </div>
 
-          {/* Right Section - Conditional Controls */}
           <div className="right-section d-flex align-items-center gap-3">
             {showDashboardControls && (
               <Dropdown className="location-dropdown">
@@ -148,8 +158,6 @@ const TheaterList = () => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-
-            {/* Profile Icon for Logged-In Users */}
             {isLoggedIn && showProfileIcon && (
               <div className="profile-icon">
                 <FaUserCircle size={28} />
@@ -180,7 +188,7 @@ const TheaterList = () => {
             <div
               key={index}
               className={`date-item ${date.value === selectedDate ? "selected" : ""}`}
-              onClick={() => setSelectedDate(date.value)} // Update selected date on click
+              onClick={() => setSelectedDate(date.value)}
             >
               {date.display}
             </div>

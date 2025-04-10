@@ -1,35 +1,110 @@
-.orders-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .orders-container h2 {
+/* Orders Page Layout */
+.orders-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+h2 {
+  font-size: 1.5rem; /* Title size */
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Adjust proportions: booking info and poster */
+  gap: 15px; /* Space between info and poster */
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  align-items: flex-start; /* Align items at the top */
+}
+
+.booking-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.booking-info p {
+  margin: 8px 0;
+  font-size: 0.9rem; /* Info font size */
+  color: #555;
+}
+
+.booking-info strong {
+  color: #000;
+}
+
+/* Poster Styling */
+.poster-container {
+  display: flex;
+  justify-content: flex-end; /* Push poster to the right */
+  align-items: flex-start;
+}
+
+.movie-poster {
+  width: 70%; /* Adjust poster size */
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Payment Options Section */
+h3 {
+  font-size: 1.3rem; /* Subtitle size */
+  color: #333;
+  margin: 15px 0 10px;
+}
+
+.payment-options {
+  display: flex;
+  gap: 10px;
+}
+
+.payment-options button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-options button:hover {
+  background-color: #0056b3;
+}
+
+.payment-options button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-details {
+    grid-template-columns: 1fr; /* Stack items vertically */
     text-align: center;
-    color: #003566;
-    margin-bottom: 30px;
   }
-  
-  .order-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s;
+
+  .poster-container {
+    justify-content: center; /* Center poster in mobile view */
+    margin-top: 10px;
   }
-  
-  .order-card:hover {
-    transform: translateY(-2px);
+
+  .movie-poster {
+    width: 60%; /* Adjust size for mobile */
   }
-  
-  .order-card h3 {
-    color: #1e293b;
-    margin-bottom: 10px;
+
+  .payment-options {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  .order-card p {
-    margin: 4px 0;
-    color: #374151;
+
+  .payment-options button {
+    width: 100%;
   }
+}

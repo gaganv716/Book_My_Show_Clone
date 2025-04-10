@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard"; // Import Dashboard page
 import MovieDetails from "./components/MovieDetails"; // Import MovieDetails component
 import TheaterList from "./pages/TheaterList"; // Import TheaterList component
 import SeatSelectionPage from "./pages/SeatSelectionPage"; // ✅ Import SeatSelectionPage component
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         
         {/* Seat Selection Route */}
         <Route path="/seat-selection" element={<SeatSelectionPage />} /> {/* New Route */}
+
+        {/*Orders Page Route */}
+        <Route path="/order" element={<OrdersPage />} />
       </Routes>
     </div>
   );

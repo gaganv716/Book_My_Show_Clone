@@ -1,39 +1,26 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./seatSelection.css";
 
 const SeatSelectionPage = () => {
-  const { state } = useLocation();
-  const selectedTheatre = state?.theatre || "Unknown Theatre";
+  const { state } = useLocation(); // Retrieve state from TheaterList
+  const navigate = useNavigate();
+
+  const selectedTheatre = state?.theaterName || "Unknown Theatre"; // Ensure the correct theater name is shown
   const selectedShowtime = state?.showtime || "Unknown Showtime";
   const selectedDate = state?.selectedDate || "Unknown Date";
+  const posterUrl = state?.posterUrl || ""; // Retrieve posterUrl from state
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const seatingCategories = [
-    {
-      name: "VIP",
-      price: 400,
-      rows: ["A", "B"],
-    },
-    {
-      name: "PREMIUM",
-      price: 220,
-      rows: ["C", "D"],
-    },
-    {
-      name: "EXECUTIVE",
-      price: 200,
-      rows: ["E", "F"],
-    },
-    {
-      name: "NORMAL",
-      price: 180,
-      rows: ["G", "H", "I", "J"],
-    },
+    { name: "VIP", price: 400, rows: ["A", "B"], split: true },
+    { name: "PREMIUM", price: 220, rows: ["C", "D"], split: true },
+    { name: "EXECUTIVE", price: 200, rows: ["E", "F"], split: false },
+    { name: "NORMAL", price: 180, rows: ["G", "H", "I", "J"], split: false },
   ];
 
-  const columns = 20; // 👈 Now 20 seats per row
+  const columns = 20;
 
   const handleSeatClick = (seat) => {
     if (selectedSeats.includes(seat)) {
@@ -43,12 +30,38 @@ const SeatSelectionPage = () => {
     }
   };
 
-  const isSold = (seat) => ["B4", "D5", "G7"].includes(seat); // Example sold seats
+  const isSold = (seat) => ["B4", "D5", "G7"].includes(seat); // Example logic for sold seats
+
+  // Calculate Total Price
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    selectedSeats.forEach((seat) => {
+      const category = seatingCategories.find((cat) =>
+        cat.rows.includes(seat[0]) // Find the category by row
+      );
+      totalPrice += category ? category.price : 0;
+    });
+    return totalPrice;
+  };
+
+  // Handle navigation to OrdersPage
+  const handleProceed = () => {
+    navigate("/order", {
+      state: {
+        theatre: selectedTheatre,
+        showtime: selectedShowtime,
+        selectedDate,
+        selectedSeats,
+        totalPrice: calculateTotalPrice(),
+        posterUrl, // Pass posterUrl to OrdersPage
+      },
+    });
+  };
 
   return (
     <div className="seat-selection-page">
       <div className="seat-selection-header">
-        <h2>{selectedTheatre}</h2>
+        <h2>{selectedTheatre}</h2> {/* Display the selected theater */}
         <p>
           <strong>{selectedDate}</strong> | <strong>{selectedShowtime}</strong>
         </p>
@@ -56,8 +69,6 @@ const SeatSelectionPage = () => {
           Selected Seats: <strong>{selectedSeats.join(", ") || "None"}</strong>
         </p>
       </div>
-
-      <div className="screen">SCREEN THIS WAY</div>
 
       <div className="seats-wrapper">
         {seatingCategories.map((category, index) => (
@@ -70,21 +81,54 @@ const SeatSelectionPage = () => {
                 <div key={row} className="seat-row">
                   <div className="row-label">{row}</div>
                   <div className="row-seats">
-                    {[...Array(columns)].map((_, colIdx) => {
-                      const seatId = `${row}${colIdx + 1}`;
-                      const isSeatSelected = selectedSeats.includes(seatId);
-                      const sold = isSold(seatId);
-
-                      return (
-                        <div
-                          key={seatId}
-                          className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                          onClick={() => !sold && handleSeatClick(seatId)}
-                        >
-                          {colIdx + 1}
-                        </div>
-                      );
-                    })}
+                    {category.split ? (
+                      <>
+                        {[...Array(10)].map((_, colIdx) => {
+                          const seatId = `${row}${colIdx + 1}`;
+                          const isSeatSelected = selectedSeats.includes(seatId);
+                          const sold = isSold(seatId);
+                          return (
+                            <div
+                              key={seatId}
+                              className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                              onClick={() => !sold && handleSeatClick(seatId)}
+                            >
+                              {colIdx + 1}
+                            </div>
+                          );
+                        })}
+                        <div className="gap" />
+                        {[...Array(10)].map((_, colIdx) => {
+                          const seatId = `${row}${colIdx + 11}`;
+                          const isSeatSelected = selectedSeats.includes(seatId);
+                          const sold = isSold(seatId);
+                          return (
+                            <div
+                              key={seatId}
+                              className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                              onClick={() => !sold && handleSeatClick(seatId)}
+                            >
+                              {colIdx + 11}
+                            </div>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      [...Array(columns)].map((_, colIdx) => {
+                        const seatId = `${row}${colIdx + 1}`;
+                        const isSeatSelected = selectedSeats.includes(seatId);
+                        const sold = isSold(seatId);
+                        return (
+                          <div
+                            key={seatId}
+                            className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                            onClick={() => !sold && handleSeatClick(seatId)}
+                          >
+                            {colIdx + 1}
+                          </div>
+                        );
+                      })
+                    )}
                   </div>
                 </div>
               ))}
@@ -93,15 +137,21 @@ const SeatSelectionPage = () => {
         ))}
       </div>
 
+      {/* Screen Layout */}
+      <div className="screen">SCREEN THIS WAY</div>
+
+      {/* Legends */}
       <div className="legend">
         <span className="legend-box available"></span> Available
         <span className="legend-box selected"></span> Selected
         <span className="legend-box sold"></span> Sold
       </div>
 
+      {/* Proceed Button */}
       <button
         className="seat-selection-button"
         disabled={selectedSeats.length === 0}
+        onClick={handleProceed}
       >
         Proceed to Payment ({selectedSeats.length} Seats Selected)
       </button>
