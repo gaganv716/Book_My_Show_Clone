@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Navbar, Nav, Form, FormControl, Dropdown } from "react-bootstrap";
 import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import CarouselComponent from "../components/CarouselComponent";
@@ -15,7 +15,7 @@ import Footer from "../components/Footer";
 
 const Dashboard = () => {
   const [isLoggedIn] = useState(true);
-  const navigate = useNavigate(); // ✅ Initialize navigate
+  const navigate = useNavigate();
 
   const showDashboardControls = true;
   const showProfileIcon = true;
@@ -54,7 +54,7 @@ const Dashboard = () => {
               <div className="profile-icon">
                 <FaUserCircle
                   className="text-2xl cursor-pointer"
-                  onClick={() => navigate("/profile")} // ✅ Navigate to profile
+                  onClick={() => navigate("/profile")}
                 />
               </div>
             )}
@@ -76,7 +76,6 @@ const Dashboard = () => {
         </Container>
       </Navbar>
 
-      {/* Main Layout */}
       <div className="flex">
         <Sidebar />
         <div className="flex-1">

@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import "./Payment.css";
+import DashboardNav from "../pages/DashboardNav";
+
 
 
 const NetBankingPayment = () => {
@@ -14,7 +16,7 @@ const NetBankingPayment = () => {
 
   return (
     <>
-      <Navbar />
+      <DashboardNav />
       <div className="payment-page">
         <h2>Net Banking</h2>
         <p>Select your bank:</p>

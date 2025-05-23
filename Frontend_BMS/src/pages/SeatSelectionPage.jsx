@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./seatSelection.css";
+import DashboardNav from "../pages/DashboardNav";
+
 
 const SeatSelectionPage = () => {
   const { state } = useLocation(); // Retrieve state from TheaterList
@@ -59,31 +61,64 @@ const SeatSelectionPage = () => {
   };
 
   return (
-    <div className="seat-selection-page">
-      <div className="seat-selection-header">
-        <h2>{selectedTheatre}</h2> {/* Display the selected theater */}
-        <p>
-          <strong>{selectedDate}</strong> | <strong>{selectedShowtime}</strong>
-        </p>
-        <p>
-          Selected Seats: <strong>{selectedSeats.join(", ") || "None"}</strong>
-        </p>
-      </div>
+    <>
+      <DashboardNav />
+      <div className="seat-selection-page">
+        <div className="seat-selection-header">
+          <h2>{selectedTheatre}</h2> {/* Display the selected theater */}
+          <p>
+            <strong>{selectedDate}</strong> | <strong>{selectedShowtime}</strong>
+          </p>
+          <p>
+            Selected Seats: <strong>{selectedSeats.join(", ") || "None"}</strong>
+          </p>
+        </div>
 
-      <div className="seats-wrapper">
-        {seatingCategories.map((category, index) => (
-          <div key={index} className="category-block">
-            <div className="category-heading">
-              {category.name} - ₹{category.price}
-            </div>
-            <div className="seat-rows">
-              {category.rows.map((row) => (
-                <div key={row} className="seat-row">
-                  <div className="row-label">{row}</div>
-                  <div className="row-seats">
-                    {category.split ? (
-                      <>
-                        {[...Array(10)].map((_, colIdx) => {
+        <div className="seats-wrapper">
+          {seatingCategories.map((category, index) => (
+            <div key={index} className="category-block">
+              <div className="category-heading">
+                {category.name} - ₹{category.price}
+              </div>
+              <div className="seat-rows">
+                {category.rows.map((row) => (
+                  <div key={row} className="seat-row">
+                    <div className="row-label">{row}</div>
+                    <div className="row-seats">
+                      {category.split ? (
+                        <>
+                          {[...Array(10)].map((_, colIdx) => {
+                            const seatId = `${row}${colIdx + 1}`;
+                            const isSeatSelected = selectedSeats.includes(seatId);
+                            const sold = isSold(seatId);
+                            return (
+                              <div
+                                key={seatId}
+                                className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                                onClick={() => !sold && handleSeatClick(seatId)}
+                              >
+                                {colIdx + 1}
+                              </div>
+                            );
+                          })}
+                          <div className="gap" />
+                          {[...Array(10)].map((_, colIdx) => {
+                            const seatId = `${row}${colIdx + 11}`;
+                            const isSeatSelected = selectedSeats.includes(seatId);
+                            const sold = isSold(seatId);
+                            return (
+                              <div
+                                key={seatId}
+                                className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                                onClick={() => !sold && handleSeatClick(seatId)}
+                              >
+                                {colIdx + 11}
+                              </div>
+                            );
+                          })}
+                        </>
+                      ) : (
+                        [...Array(columns)].map((_, colIdx) => {
                           const seatId = `${row}${colIdx + 1}`;
                           const isSeatSelected = selectedSeats.includes(seatId);
                           const sold = isSold(seatId);
@@ -96,66 +131,36 @@ const SeatSelectionPage = () => {
                               {colIdx + 1}
                             </div>
                           );
-                        })}
-                        <div className="gap" />
-                        {[...Array(10)].map((_, colIdx) => {
-                          const seatId = `${row}${colIdx + 11}`;
-                          const isSeatSelected = selectedSeats.includes(seatId);
-                          const sold = isSold(seatId);
-                          return (
-                            <div
-                              key={seatId}
-                              className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                              onClick={() => !sold && handleSeatClick(seatId)}
-                            >
-                              {colIdx + 11}
-                            </div>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      [...Array(columns)].map((_, colIdx) => {
-                        const seatId = `${row}${colIdx + 1}`;
-                        const isSeatSelected = selectedSeats.includes(seatId);
-                        const sold = isSold(seatId);
-                        return (
-                          <div
-                            key={seatId}
-                            className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                            onClick={() => !sold && handleSeatClick(seatId)}
-                          >
-                            {colIdx + 1}
-                          </div>
-                        );
-                      })
-                    )}
+                        })
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Screen Layout */}
+        <div className="screen">SCREEN THIS WAY</div>
+
+        {/* Legends */}
+        <div className="legend">
+          <span className="legend-box available"></span> Available
+          <span className="legend-box selected"></span> Selected
+          <span className="legend-box sold"></span> Sold
+        </div>
+
+        {/* Proceed Button */}
+        <button
+          className="seat-selection-button"
+          disabled={selectedSeats.length === 0}
+          onClick={handleProceed}
+        >
+          Proceed to Payment ({selectedSeats.length} Seats Selected)
+        </button>
       </div>
-
-      {/* Screen Layout */}
-      <div className="screen">SCREEN THIS WAY</div>
-
-      {/* Legends */}
-      <div className="legend">
-        <span className="legend-box available"></span> Available
-        <span className="legend-box selected"></span> Selected
-        <span className="legend-box sold"></span> Sold
-      </div>
-
-      {/* Proceed Button */}
-      <button
-        className="seat-selection-button"
-        disabled={selectedSeats.length === 0}
-        onClick={handleProceed}
-      >
-        Proceed to Payment ({selectedSeats.length} Seats Selected)
-      </button>
-    </div>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./MovieDetails.css";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import DashboardNav from "../pages/DashboardNav";
 
 const API_KEY = "362dc1a026944ec0f801be34ae6fff8d";
 
@@ -59,7 +59,7 @@ const MovieDetails = () => {
 
   return (
     <>
-    <Navbar />
+    <DashboardNav />
       {/* ... [Existing Code for Header and Navbars] */}
       <div className="movie-details-container">
         <div className="movie-details-card">
