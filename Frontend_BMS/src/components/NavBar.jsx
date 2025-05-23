@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { Navbar, Nav, Container, Form, FormControl, Dropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Form,
+  FormControl,
+  Dropdown,
+} from "react-bootstrap";
 import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
-import "./NavBar.css";
 import LoginModal from "./LoginModal";
+import SignUpModal from "./SignUpModal";
+import "./NavBar.css";
 
-const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLoggedIn = false }) => {
-  const [showModal, setShowModal] = useState(false);
+const NavBar = ({
+  showDashboardControls = true,
+  showProfileIcon = false,
+  isLoggedIn = false,
+}) => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   return (
     <>
       {/* First Div - Top Section */}
       <div className="top-nav">
         <Container className="d-flex align-items-center justify-content-between">
-          {/* Logo and Search Bar */}
           <div className="left-section">
             <Navbar.Brand href="/" className="logo">
               GAP<sup>^</sup>InfoTech
@@ -22,7 +34,6 @@ const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLogge
             </Form>
           </div>
 
-          {/* Right Section - Conditional Controls */}
           <div className="right-section">
             {showDashboardControls && (
               <>
@@ -41,17 +52,15 @@ const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLogge
                   <div className="app-container">
                     <button
                       className="btn btn-danger"
-                      onClick={() => setShowModal(true)}
+                      onClick={() => setShowLoginModal(true)}
                     >
                       Login / Register
                     </button>
-                    <LoginModal show={showModal} handleClose={() => setShowModal(false)} />
                   </div>
                 )}
               </>
             )}
 
-            {/* Profile Icon for Logged-In Users */}
             {isLoggedIn && showProfileIcon && (
               <div className="profile-icon">
                 <FaUserCircle size={28} />
@@ -61,7 +70,6 @@ const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLogge
         </Container>
       </div>
 
-      {/* Second Div - Bottom Navigation */}
       <Navbar className="bottom-nav">
         <Container>
           <Nav className="mx-auto">
@@ -74,6 +82,25 @@ const NavBar = ({ showDashboardControls = true, showProfileIcon = false, isLogge
           </Nav>
         </Container>
       </Navbar>
+
+      {/* ✅ Modals */}
+      <LoginModal
+        show={showLoginModal}
+        handleClose={() => setShowLoginModal(false)}
+        handleSignup={() => {
+          setShowLoginModal(false);
+          setShowSignupModal(true);
+        }}
+      />
+
+      <SignUpModal
+        show={showSignupModal}
+        handleClose={() => setShowSignupModal(false)}
+        handleLogin={() => {
+          setShowSignupModal(false);
+          setShowLoginModal(true);
+        }}
+      />
     </>
   );
 };

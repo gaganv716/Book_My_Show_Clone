@@ -1,40 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate from react-router-dom
 
-const LoginModal = ({ show, handleClose, handleSignUp }) => {
+const LoginModal = ({ show, handleClose, handleSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
 
-  // ✅ Email validation
+  const navigate = useNavigate(); // ✅ Initialize the navigate function
+
   const isValidEmail = email.trim().length > 0 && email.includes("@");
-
-  // ✅ Password validation (at least 6 characters)
   const isValidPassword = password.length >= 6;
 
-  // ✅ Reset form and submission state
   const resetForm = () => {
     setEmail("");
     setPassword("");
     setIsSubmitting(false);
   };
 
-  // ✅ Close modal and reset form
   const handleCloseAndReset = () => {
     resetForm();
     handleClose();
   };
 
-  // ✅ Switch to SignUp modal
-  const handleSwitchToSignUp = () => {
+  const handleSwitchToSignup = () => {
     resetForm();
-    handleClose(); // Close current modal
-    handleSignUp(); // Open sign-up modal
+    handleClose();
+    if (typeof handleSignup === "function") {
+      handleSignup(); // Switch to signup modal
+    } else {
+      console.warn("handleSignup is not a function!");
+    }
   };
 
-  // ✅ Handle Login submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -44,13 +42,14 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
       // Simulate API call
       setTimeout(() => {
         console.log("Login Successful with:", { email, password });
-        handleCloseAndReset(); // Reset and close modal after successful login
-        navigate("/dashboard"); // Redirect to Dashboard
+        handleCloseAndReset();
+
+        // ✅ After successful login, navigate to the dashboard
+        navigate("/dashboard"); // Redirect to the Dashboard page
       }, 1000);
     }
   };
 
-  // Optional: Reset form when modal is closed manually
   useEffect(() => {
     if (!show) resetForm();
   }, [show]);
@@ -62,7 +61,6 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          {/* ✅ Email Input */}
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -74,7 +72,6 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
             />
           </Form.Group>
 
-          {/* ✅ Password Input */}
           <Form.Group controlId="formPassword" className="mt-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -86,7 +83,6 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
             />
           </Form.Group>
 
-          {/* ✅ Forgot Password Link */}
           <p
             className="text-end mt-1"
             style={{ color: "#9c1c1c", cursor: "pointer", fontSize: "0.9rem" }}
@@ -94,7 +90,6 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
             Forgot Password?
           </p>
 
-          {/* ✅ Login Button */}
           <Button
             type="submit"
             className="w-100 mt-2"
@@ -111,12 +106,11 @@ const LoginModal = ({ show, handleClose, handleSignUp }) => {
           </Button>
         </Form>
 
-        {/* ✅ Sign Up Button (Switch Modals) */}
         <p className="text-center mt-3">
           Don't have an account?{" "}
           <span
             style={{ color: "#9c1c1c", cursor: "pointer", fontWeight: "bold" }}
-            onClick={handleSwitchToSignUp}
+            onClick={handleSwitchToSignup}
           >
             Sign Up
           </span>
