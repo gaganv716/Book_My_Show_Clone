@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Container, Navbar, Nav, Form, FormControl, Dropdown } from "react-bootstrap";
 import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+
 import Sidebar from "../components/Sidebar";
 import CarouselComponent from "../components/CarouselComponent";
 import MovieList from "../components/MovieList";
@@ -9,12 +11,12 @@ import PremieresList from "../components/PremieresList";
 import ComedyList from "../components/ComedyList";
 import MusicMoviesList from "../components/MusicMoviesList";
 import TrendingSearches from "../components/TrendingSearches";
-import Footer from "../components/Footer"; // ✅ Import Footer
+import Footer from "../components/Footer";
 
 const Dashboard = () => {
-  const [isLoggedIn] = useState(true); // Simulating logged-in state
+  const [isLoggedIn] = useState(true);
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
-  // ✅ Define missing flags to avoid crash
   const showDashboardControls = true;
   const showProfileIcon = true;
 
@@ -33,7 +35,7 @@ const Dashboard = () => {
             </Form>
           </div>
 
-          {/* Right Section - Conditional Controls */}
+          {/* Right Section */}
           <div className="right-section d-flex align-items-center gap-3">
             {showDashboardControls && (
               <Dropdown className="location-dropdown">
@@ -48,10 +50,12 @@ const Dashboard = () => {
               </Dropdown>
             )}
 
-            {/* Profile Icon for Logged-In Users */}
             {isLoggedIn && showProfileIcon && (
               <div className="profile-icon">
-                <FaUserCircle size={28} />
+                <FaUserCircle
+                  className="text-2xl cursor-pointer"
+                  onClick={() => navigate("/profile")} // ✅ Navigate to profile
+                />
               </div>
             )}
           </div>
