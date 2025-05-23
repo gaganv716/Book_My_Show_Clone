@@ -1,0 +1,144 @@
+/* Brick Red Theme Colors */
+:root {
+  --primary-brick: #9c1c1c;
+  --primary-light: #fef2f2;
+  --primary-dark: #7a1515;
+  --border-color: #e5e7eb;
+  --text-color: #1f2937;
+  --background-light: #f9fafb;
+  --input-radius: 0.5rem;
+}
+
+/* General */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-color);
+}
+
+.profile-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--background-light);
+}
+
+.profile-card {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  max-width: 700px;
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-card h2 {
+  color: var(--primary-brick);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Input Fields */
+.profile-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.profile-form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--text-color);
+}
+
+.profile-form-group input,
+.profile-form-group select,
+.profile-form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-radius);
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.profile-form-group input:focus,
+.profile-form-group select:focus,
+.profile-form-group textarea:focus {
+  border-color: var(--primary-brick);
+  outline: none;
+}
+
+/* Buttons */
+.profile-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-brick {
+  background-color: var(--primary-brick);
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.375rem;
+  transition: background 0.3s ease;
+}
+
+.btn-brick:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-gray {
+  background-color: #e5e7eb;
+  color: #374151;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.btn-gray:hover {
+  background-color: #d1d5db;
+}
+
+/* Navbar */
+.custom-navbar {
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-navbar .brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-brick);
+}
+
+.custom-navbar .nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-button {
+  background: none;
+  border: 2px solid var(--primary-brick);
+  color: var(--primary-brick);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: var(--primary-brick);
+  color: white;
+}

@@ -60,12 +60,20 @@ const handleSubmit = async (e) => {
       throw new Error(data.message || "Login failed");
     }
 
-    console.log("Login successful:", data);
-    navigate("/dashboard"); // Redirect to dashboard or home page
+    // ✅ Store name and user ID in session storage
+    sessionStorage.setItem("username", data.name);
+    sessionStorage.setItem("userId", data._id);
 
-    // Save token or user info as needed
-    // localStorage.setItem("token", data.token);
+    // ✅ Optionally store token for authenticated routes
+    sessionStorage.setItem("token", data.token);
 
+    // ✅ Alert the user
+    alert(`Welcome back, ${data.name}!`);
+
+    // ✅ Redirect to dashboard
+    navigate("/dashboard");
+
+    // ✅ Close modal and reset
     handleCloseAndReset();
   } catch (error) {
     console.error("Login failed:", error.message);
@@ -74,6 +82,7 @@ const handleSubmit = async (e) => {
     setIsSubmitting(false);
   }
 };
+
 
   // Optional: Reset form when modal is closed manually
   useEffect(() => {
