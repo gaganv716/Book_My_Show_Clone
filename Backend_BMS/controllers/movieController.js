@@ -8,7 +8,7 @@ import  Movie  from "../models/Movie.js";
 export const addMovie = async (req, res) => {
   try {
     // ✅ Only Admins Can Add Movies
-    if (req.user.role !== "admin") {
+    if (!req.user.isAdmin) {
       return res.status(403).json({ message: "Access Denied. Admins only!" });
     }
 
@@ -72,7 +72,7 @@ export const getMovieById = async (req, res) => {
 export const updateMovie = async (req, res) => {
   try {
     // ✅ Only Admins Can Update Movies
-    if (req.user.role !== "admin") {
+    if (!req.user.isAdmin) {
       return res.status(403).json({ message: "Access Denied. Admins only!" });
     }
 
@@ -93,7 +93,7 @@ export const updateMovie = async (req, res) => {
 export const deleteMovie = async (req, res) => {
   try {
     // ✅ Only Admins Can Delete Movies
-    if (req.user.role !== "admin") {
+    if (!req.user.isAdmin) {
       return res.status(403).json({ message: "Access Denied. Admins only!" });
     }
 
