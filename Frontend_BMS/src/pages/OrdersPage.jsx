@@ -29,9 +29,18 @@ const OrdersPage = () => {
   const showProfileIcon = true; // Display profile icon
 
   const handlePayment = (method) => {
-    alert(`Payment successful with ${method}`);
-    navigate("/dashboard");
-  };
+  navigate(`/payment/${method.toLowerCase().replace(" ", "")}`, {
+    state: {
+      theatre,
+      showtime,
+      selectedDate,
+      selectedSeats,
+      totalPrice,
+      posterUrl,
+      paymentMethod: method,
+    },
+  });
+};
 
   return (
     <>

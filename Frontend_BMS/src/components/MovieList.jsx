@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import "./MovieList.css";
 
 const API_KEY = "362dc1a026944ec0f801be34ae6fff8d"; // Replace with your TMDb API key
-const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=hi-IN&region=IN&page=1`;
+const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-IN&region=IN&page=1`;
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
