@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./MovieDetails.css";
-import {
-  Navbar,
-  Nav,
-  Container,
-  Form,
-  FormControl,
-  Dropdown,
-} from "react-bootstrap";
-import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const API_KEY = "362dc1a026944ec0f801be34ae6fff8d";
 
@@ -24,7 +16,7 @@ const MovieDetails = () => {
     const fetchMovieDetails = async () => {
       try {
         const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=hi-IN`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-IN`
         );
         const data = await res.json();
         if (!data.overview) {
@@ -67,6 +59,7 @@ const MovieDetails = () => {
 
   return (
     <>
+    <Navbar />
       {/* ... [Existing Code for Header and Navbars] */}
       <div className="movie-details-container">
         <div className="movie-details-card">
