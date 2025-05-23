@@ -1,45 +1,58 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-
 const SignUpModal = ({ show, handleClose, handleLogin }) => {
+  const [name, setName] = useState(""); // New field
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ✅ Email validation
+  const isValidName = name.trim().length > 0;
   const isValidEmail = email.trim().length > 0 && email.includes("@");
-
-  // ✅ Password validation (at least 6 characters)
   const isValidPassword = password.length >= 6;
-  
-  // ✅ Confirm password validation
   const passwordsMatch = password === confirmPassword;
 
-  // ✅ Handle Sign Up Submission
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isValidEmail || !isValidPassword || !passwordsMatch) return;
+    if (!isValidName || !isValidEmail || !isValidPassword || !passwordsMatch) return;
 
     setIsSubmitting(true);
 
     try {
-      // Simulate API call (replace with real backend request)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  const response = await fetch("http://localhost:5000/api/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  });
 
-      console.log("Account created:", { email });
+  const data = await response.json();
 
-      // Reset form fields
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+  if (!response.ok) {
+    throw new Error(data.message || "Registration failed");
+  }
 
-      handleClose(); // Close Sign Up modal
-    } catch (error) {
-      console.error("Signup failed", error);
-    } finally {
+  console.log("Registration successful:", data);
+
+  resetForm();
+  alert("🎉 Registration successful! You can now log in.");
+  handleClose();
+  setTimeout(() => {
+    handleLogin();
+  }, 300);
+} catch (error) {
+  console.error("Signup failed:", error.message);
+  alert("Signup failed: " + error.message);
+} finally {
       setIsSubmitting(false);
     }
   };
@@ -51,7 +64,18 @@ const SignUpModal = ({ show, handleClose, handleLogin }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formEmail">
+          <Form.Group controlId="formName">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formEmail" className="mt-3">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -91,23 +115,34 @@ const SignUpModal = ({ show, handleClose, handleLogin }) => {
               backgroundColor: "#9c1c1c",
               borderColor: "#9c1c1c",
               color: "#fff",
-              cursor: isValidEmail && isValidPassword && passwordsMatch ? "pointer" : "not-allowed",
-              opacity: isValidEmail && isValidPassword && passwordsMatch ? 1 : 0.7,
+              cursor:
+                isValidName && isValidEmail && isValidPassword && passwordsMatch
+                  ? "pointer"
+                  : "not-allowed",
+              opacity:
+                isValidName && isValidEmail && isValidPassword && passwordsMatch
+                  ? 1
+                  : 0.7,
             }}
-            disabled={!isValidEmail || !isValidPassword || !passwordsMatch || isSubmitting}
+            disabled={
+              !isValidName ||
+              !isValidEmail ||
+              !isValidPassword ||
+              !passwordsMatch ||
+              isSubmitting
+            }
           >
             {isSubmitting ? "Signing up..." : "Sign Up"}
           </Button>
         </Form>
 
-        {/* ✅ Already Registered? Go to Login */}
         <p className="text-center mt-3">
           Already have an account?{" "}
           <span
             style={{ color: "#9c1c1c", cursor: "pointer", fontWeight: "bold" }}
             onClick={() => {
-              handleClose(); // Close Sign Up modal
-              handleLogin(); // Open Login modal
+              handleClose();
+              handleLogin();
             }}
           >
             Login

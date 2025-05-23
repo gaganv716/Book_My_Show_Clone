@@ -1,55 +1,81 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
-const LoginModal = ({ show, handleClose, handleSignup }) => {
+const LoginModal =  ({ show, handleClose, handleSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
-  const navigate = useNavigate(); // ✅ Initialize the navigate function
-
+  // ✅ Email validation
   const isValidEmail = email.trim().length > 0 && email.includes("@");
+
+  // ✅ Password validation (at least 6 characters)
   const isValidPassword = password.length >= 6;
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // ✅ Reset form and submission state
   const resetForm = () => {
     setEmail("");
     setPassword("");
     setIsSubmitting(false);
   };
 
+  // ✅ Close modal and reset form
   const handleCloseAndReset = () => {
     resetForm();
     handleClose();
   };
 
-  const handleSwitchToSignup = () => {
+  // ✅ Switch to SignUp modal
+  const handleSwitchToSignUp = () => {
     resetForm();
-    handleClose();
-    if (typeof handleSignup === "function") {
-      handleSignup(); // Switch to signup modal
-    } else {
-      console.warn("handleSignup is not a function!");
-    }
+    handleClose();      // Close current modal
+    handleSignUp();     // Open sign-up modal
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // ✅ Handle Login submission
+  // Replace your current handleSubmit with this:
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (isValidEmail && isValidPassword) {
-      setIsSubmitting(true);
+  if (!isValidEmail || !isValidPassword) return;
 
-      // Simulate API call
-      setTimeout(() => {
-        console.log("Login Successful with:", { email, password });
-        handleCloseAndReset();
+  setIsSubmitting(true);
 
-        // ✅ After successful login, navigate to the dashboard
-        navigate("/dashboard"); // Redirect to the Dashboard page
-      }, 1000);
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Login failed");
     }
-  };
 
+    console.log("Login successful:", data);
+    navigate("/dashboard"); // Redirect to dashboard or home page
+
+    // Save token or user info as needed
+    // localStorage.setItem("token", data.token);
+
+    handleCloseAndReset();
+  } catch (error) {
+    console.error("Login failed:", error.message);
+    alert("Login failed: " + error.message);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+  // Optional: Reset form when modal is closed manually
   useEffect(() => {
     if (!show) resetForm();
   }, [show]);
@@ -61,6 +87,7 @@ const LoginModal = ({ show, handleClose, handleSignup }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
+          {/* ✅ Email Input */}
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -72,6 +99,7 @@ const LoginModal = ({ show, handleClose, handleSignup }) => {
             />
           </Form.Group>
 
+          {/* ✅ Password Input */}
           <Form.Group controlId="formPassword" className="mt-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -83,6 +111,7 @@ const LoginModal = ({ show, handleClose, handleSignup }) => {
             />
           </Form.Group>
 
+          {/* ✅ Forgot Password Link */}
           <p
             className="text-end mt-1"
             style={{ color: "#9c1c1c", cursor: "pointer", fontSize: "0.9rem" }}
@@ -90,6 +119,7 @@ const LoginModal = ({ show, handleClose, handleSignup }) => {
             Forgot Password?
           </p>
 
+          {/* ✅ Login Button */}
           <Button
             type="submit"
             className="w-100 mt-2"
@@ -106,11 +136,12 @@ const LoginModal = ({ show, handleClose, handleSignup }) => {
           </Button>
         </Form>
 
+        {/* ✅ Sign Up Button (Switch Modals) */}
         <p className="text-center mt-3">
           Don't have an account?{" "}
           <span
             style={{ color: "#9c1c1c", cursor: "pointer", fontWeight: "bold" }}
-            onClick={handleSwitchToSignup}
+            onClick={handleSwitchToSignUp}
           >
             Sign Up
           </span>
