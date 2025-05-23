@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import "./Payment.css";
+import DashboardNav from "../pages/DashboardNav";
+
 
 const CreditCardPayment = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const CreditCardPayment = () => {
 
   return (
     <>
-      <Navbar />
+      <DashboardNav />
       <div className="payment-page">
         <h2>Credit Card Payment</h2>
         <p>Card Number:</p>
