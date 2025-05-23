@@ -68,7 +68,7 @@ const Footer = () => {
       <hr className="footer-divider" />
       <div className="footer-bottom">
         <h1 className="footer-logo">
-          <span className="text-red-500">GAP_</span>InfoTech
+          <span className="text-red-500">GAP<sup>^</sup></span>InfoTech
         </h1>
 
         <div className="footer-social-icons">
