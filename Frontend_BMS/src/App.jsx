@@ -13,6 +13,8 @@ import OrdersPage from "./pages/OrdersPage";
 import UpiPayment from "./pages/UpiPayment";
 import CreditCardPayment from "./pages/CreditCardPayment";
 import NetBankingPayment from "./pages/NetBankingPayment";
+import PrivateRoute from "./components/PrivateRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   // Global login state
@@ -24,6 +26,7 @@ function App() {
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/dashboard"
   element={<Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
@@ -32,12 +35,25 @@ function App() {
         <Route path="/movie/:id" element={<MovieDetails isLoggedIn={isLoggedIn} />} />
         <Route path="/theaters/:movieId" element={<TheaterList />} />
         <Route path="/seat-selection" element={<SeatSelectionPage />} />
+        <Route path="/seat-selection" element={<SeatSelectionPage />} />
         <Route path="/order" element={<OrdersPage />} />
 
         {/* Payment routes */}
         <Route path="/payment/upi" element={<UpiPayment />} />
         <Route path="/payment/creditcard" element={<CreditCardPayment />} />
         <Route path="/payment/netbanking" element={<NetBankingPayment />} />
+        <Route path="/profile" element={<ProfilePage />} />
+
+
+        {/* ✅ Protected Dashboard Route */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );

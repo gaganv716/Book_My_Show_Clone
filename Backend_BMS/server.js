@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import movieRoutes from "./routes/movieRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/movies", movieRoutes);
+app.use("/api/users", userRoutes);
 
 // Root Route
 app.get("/", (req, res) => {
