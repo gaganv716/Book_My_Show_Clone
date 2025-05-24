@@ -3,15 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./seatSelection.css";
 import DashboardNav from "../pages/DashboardNav";
 
-
 const SeatSelectionPage = () => {
   const { state } = useLocation(); // Retrieve state from TheaterList
   const navigate = useNavigate();
 
-  const selectedTheatre = state?.theaterName || "Unknown Theatre"; // Ensure the correct theater name is shown
+  const selectedTheatre = state?.theaterName || "Unknown Theatre";
   const selectedShowtime = state?.showtime || "Unknown Showtime";
   const selectedDate = state?.selectedDate || "Unknown Date";
-  const posterUrl = state?.posterUrl || ""; // Retrieve posterUrl from state
+  const posterUrl = state?.posterUrl || ""; // Movie poster
+  const movieTitle = state?.movieTitle || "Unknown Movie"; // Movie title
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -32,14 +32,14 @@ const SeatSelectionPage = () => {
     }
   };
 
-  const isSold = (seat) => ["B4", "D5", "G7"].includes(seat); // Example logic for sold seats
+  const isSold = (seat) => ["B4", "D5", "G7"].includes(seat);
 
   // Calculate Total Price
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     selectedSeats.forEach((seat) => {
       const category = seatingCategories.find((cat) =>
-        cat.rows.includes(seat[0]) // Find the category by row
+        cat.rows.includes(seat[0])
       );
       totalPrice += category ? category.price : 0;
     });
@@ -55,7 +55,8 @@ const SeatSelectionPage = () => {
         selectedDate,
         selectedSeats,
         totalPrice: calculateTotalPrice(),
-        posterUrl, // Pass posterUrl to OrdersPage
+        posterUrl, // ✅ Ensure movie poster is passed
+        movieTitle, // ✅ Ensure movie title is passed
       },
     });
   };
@@ -65,7 +66,7 @@ const SeatSelectionPage = () => {
       <DashboardNav />
       <div className="seat-selection-page">
         <div className="seat-selection-header">
-          <h2>{selectedTheatre}</h2> {/* Display the selected theater */}
+          <h2>{selectedTheatre}</h2>
           <p>
             <strong>{selectedDate}</strong> | <strong>{selectedShowtime}</strong>
           </p>
@@ -85,54 +86,20 @@ const SeatSelectionPage = () => {
                   <div key={row} className="seat-row">
                     <div className="row-label">{row}</div>
                     <div className="row-seats">
-                      {category.split ? (
-                        <>
-                          {[...Array(10)].map((_, colIdx) => {
-                            const seatId = `${row}${colIdx + 1}`;
-                            const isSeatSelected = selectedSeats.includes(seatId);
-                            const sold = isSold(seatId);
-                            return (
-                              <div
-                                key={seatId}
-                                className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                                onClick={() => !sold && handleSeatClick(seatId)}
-                              >
-                                {colIdx + 1}
-                              </div>
-                            );
-                          })}
-                          <div className="gap" />
-                          {[...Array(10)].map((_, colIdx) => {
-                            const seatId = `${row}${colIdx + 11}`;
-                            const isSeatSelected = selectedSeats.includes(seatId);
-                            const sold = isSold(seatId);
-                            return (
-                              <div
-                                key={seatId}
-                                className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                                onClick={() => !sold && handleSeatClick(seatId)}
-                              >
-                                {colIdx + 11}
-                              </div>
-                            );
-                          })}
-                        </>
-                      ) : (
-                        [...Array(columns)].map((_, colIdx) => {
-                          const seatId = `${row}${colIdx + 1}`;
-                          const isSeatSelected = selectedSeats.includes(seatId);
-                          const sold = isSold(seatId);
-                          return (
-                            <div
-                              key={seatId}
-                              className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
-                              onClick={() => !sold && handleSeatClick(seatId)}
-                            >
-                              {colIdx + 1}
-                            </div>
-                          );
-                        })
-                      )}
+                      {[...Array(columns)].map((_, colIdx) => {
+                        const seatId = `${row}${colIdx + 1}`;
+                        const isSeatSelected = selectedSeats.includes(seatId);
+                        const sold = isSold(seatId);
+                        return (
+                          <div
+                            key={seatId}
+                            className={`seat ${sold ? "sold" : isSeatSelected ? "selected" : "available"}`}
+                            onClick={() => !sold && handleSeatClick(seatId)}
+                          >
+                            {colIdx + 1}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}

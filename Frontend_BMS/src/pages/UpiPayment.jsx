@@ -1,19 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/NavBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import DashboardNav from "../pages/DashboardNav";
 import Footer from "../components/Footer";
 import "./Payment.css";
-import DashboardNav from "../pages/DashboardNav";
-
-// import qr image
 import qrImage from "../assets/upi-qr.jpg";
 
-
 const UpiPayment = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const {
+    theatre,
+    showtime,
+    selectedDate,
+    selectedSeats,
+    totalPrice,
+    posterUrl,
+    paymentMethod,
+    movieTitle,  // ✅ Corrected movieTitle reference
+  } = location.state || {};
+
+  // Redirect if booking details are missing
+  if (!theatre || !showtime || !selectedDate || !selectedSeats) {
+    alert("Missing booking details. Redirecting to dashboard.");
+    navigate("/dashboard");
+    return null;
+  }
+
+  const bookingDetails = {
+    movieTitle,  // ✅ Ensure movieTitle is passed
+    showtime,    // ✅ Ensure showtime is passed
+    theatre,
+    selectedDate,
+    selectedSeats,
+    totalPrice,
+    posterUrl,
+    paymentMethod,
+  };
 
   const handleConfirm = () => {
     alert("Payment successful via UPI");
-    navigate("/dashboard");
+    navigate("/success", { state: { bookingDetails } }); // ✅ Fix: Correct navigation
   };
 
   return (

@@ -4,7 +4,7 @@ import PlayIcon from "./PlayIcon"; // Import the play icon
 import "./MovieList.css";
 
 const API_KEY = "362dc1a026944ec0f801be34ae6fff8d";
-const API_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=hi-IN&region=IN&page=1`;
+const API_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&region=IN&page=1`;
 
 const DEFAULT_POSTER = "/images/fallback-poster.png"; // ✅ Add a fallback poster path
 

@@ -1,17 +1,43 @@
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/NavBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import DashboardNav from "../pages/DashboardNav";
 import Footer from "../components/Footer";
 import "./Payment.css";
-import DashboardNav from "../pages/DashboardNav";
-
-
 
 const NetBankingPayment = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const {
+    theatre,
+    showtime,
+    selectedDate,
+    selectedSeats,
+    totalPrice,
+    posterUrl,
+    paymentMethod,
+    movieTitle,  // ✅ Corrected movieTitle reference
+  } = location.state || {};
+
+  if (!theatre || !showtime || !selectedDate || !selectedSeats) {
+    alert("Missing booking details. Redirecting to dashboard.");
+    navigate("/dashboard");
+    return null;
+  }
+
+  const bookingDetails = {
+    movieTitle,  // ✅ Ensure movieTitle is passed
+    showtime,    // ✅ Ensure showtime is passed
+    theatre,
+    selectedDate,
+    selectedSeats,
+    totalPrice,
+    posterUrl,
+    paymentMethod,
+  };
 
   const handleConfirm = () => {
     alert("Payment successful via Net Banking");
-    navigate("/dashboard");
+    navigate("/success", { state: { bookingDetails } }); // ✅ Fix: Correct navigation
   };
 
   return (

@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom"; // Import useLocation for posterUrl
-import Footer from "../components/Footer"; // ✅ Import Footer component
-import "./TheaterList.css"; // Add CSS file for styling
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import Footer from "../components/Footer"; 
+import "./TheaterList.css"; 
 import { Container, Form, FormControl, Navbar, Dropdown, Nav } from "react-bootstrap";
 import { FaMapMarkerAlt, FaUserCircle } from "react-icons/fa";
 
 const TheaterList = () => {
   const { movieId } = useParams();
-  const { state } = useLocation(); // Retrieve state passed from MovieDetails
+  const { state } = useLocation();
   const navigate = useNavigate();
 
   const [theaters, setTheaters] = useState([]);
   const [upcomingDates, setUpcomingDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const posterUrl = state?.posterUrl || ""; // Extract posterUrl from state
+  const posterUrl = state?.posterUrl || ""; 
+  const movieTitle = state?.movieTitle || "Unknown Movie"; 
 
-  const showDashboardControls = true;
-  const isLoggedIn = true;
-  const showProfileIcon = true;
+  useEffect(() => {
+    console.log("Received state in TheaterList:", state); // ✅ Debugging log
+  }, [state]);
 
-  // Generate upcoming dates dynamically
   useEffect(() => {
     const today = new Date();
     const generatedDates = [];
@@ -29,14 +29,13 @@ const TheaterList = () => {
       date.setDate(today.getDate() + i);
       generatedDates.push({
         display: date.toDateString(),
-        value: date.toISOString().split("T")[0], // Format for identification
+        value: date.toISOString().split("T")[0],
       });
     }
     setUpcomingDates(generatedDates);
-    setSelectedDate(generatedDates[0]?.value); // Set the current date as selected
+    setSelectedDate(generatedDates[0]?.value);
   }, []);
 
-  // Example local theater data
   const theaterDatabase = {
     "1": [
       {
@@ -110,64 +109,50 @@ const TheaterList = () => {
     ],
   };
 
-  // Combine all theaters into a single list for fallback
   const fallbackTheaters = Object.values(theaterDatabase).flat();
 
   useEffect(() => {
-    // Fetch theater data for the given movieId or fallback data (all theaters)
-    const fetchedTheaters = theaterDatabase[movieId] || fallbackTheaters;
-    setTheaters(fetchedTheaters);
+    setTheaters(theaterDatabase[movieId] || fallbackTheaters);
   }, [movieId]);
 
   const handleShowtimeClick = (theaterName, showtime) => {
-    // Navigate to Seat Selection Page with selected theater, showtime, and poster details
     navigate(`/seat-selection`, {
       state: {
         theaterName,
         showtime,
         selectedDate,
-        posterUrl, // Pass poster URL to SeatSelectionPage
+        posterUrl,  // ✅ Pass posterUrl forward
+        movieTitle, // ✅ Pass movieTitle forward
       },
     });
   };
 
   return (
     <>
-      {/* Top Dashboard Navbar */}
       <div className="top-nav">
         <Container className="d-flex align-items-center justify-content-between">
-          <div className="left-section d-flex align-items-center gap-3">
-            <Navbar.Brand href="/" className="logo">
-              GAP<sup>^</sup>InfoTech
-            </Navbar.Brand>
-            <Form className="search-bar d-flex">
-              <FormControl type="search" placeholder="Search movies, events..." />
-            </Form>
-          </div>
-
-          <div className="right-section d-flex align-items-center gap-3">
-            {showDashboardControls && (
-              <Dropdown className="location-dropdown">
-                <Dropdown.Toggle variant="light">
-                  <FaMapMarkerAlt /> Select Location
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#">Bangalore</Dropdown.Item>
-                  <Dropdown.Item href="#">Mumbai</Dropdown.Item>
-                  <Dropdown.Item href="#">Delhi</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
-            {isLoggedIn && showProfileIcon && (
-              <div className="profile-icon">
-                <FaUserCircle size={28} />
-              </div>
-            )}
+          <Navbar.Brand href="/" className="logo">
+            GAP<sup>^</sup>InfoTech
+          </Navbar.Brand>
+          <Form className="search-bar d-flex">
+            <FormControl type="search" placeholder="Search movies, events..." />
+          </Form>
+          <Dropdown className="location-dropdown">
+            <Dropdown.Toggle variant="light">
+              <FaMapMarkerAlt /> Select Location
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#">Bangalore</Dropdown.Item>
+              <Dropdown.Item href="#">Mumbai</Dropdown.Item>
+              <Dropdown.Item href="#">Delhi</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <div className="profile-icon">
+            <FaUserCircle size={28} />
           </div>
         </Container>
       </div>
 
-      {/* Bottom Navigation */}
       <Navbar className="bottom-nav">
         <Container>
           <Nav className="mx-auto">
@@ -181,24 +166,18 @@ const TheaterList = () => {
         </Container>
       </Navbar>
 
-      {/* Upcoming Dates Section */}
       <div className="dates-section">
         <div className="dates-container">
           {upcomingDates.map((date, index) => (
-            <div
-              key={index}
-              className={`date-item ${date.value === selectedDate ? "selected" : ""}`}
-              onClick={() => setSelectedDate(date.value)}
-            >
+            <div key={index} className={`date-item ${date.value === selectedDate ? "selected" : ""}`} onClick={() => setSelectedDate(date.value)}>
               {date.display}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Theater List Section */}
       <div className="theater-list-container">
-        <h1>Theaters Showing This Movie</h1>
+        <h1>Theaters Showing {movieTitle}</h1> 
         {theaters.map((theater, index) => (
           <div key={index} className="theater-card">
             <h2>{theater.name}</h2>
@@ -207,11 +186,7 @@ const TheaterList = () => {
               <h3>Showtimes:</h3>
               <ul>
                 {theater.showtimes.map((time, idx) => (
-                  <li
-                    key={idx}
-                    className="showtime-item"
-                    onClick={() => handleShowtimeClick(theater.name, time)} // Navigate on click
-                  >
+                  <li key={idx} className="showtime-item" onClick={() => handleShowtimeClick(theater.name, time)}>
                     {time}
                   </li>
                 ))}
@@ -224,7 +199,6 @@ const TheaterList = () => {
         ))}
       </div>
 
-      {/* Footer */}
       <Footer />
     </>
   );

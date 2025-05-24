@@ -49,10 +49,14 @@ useEffect(() => {
 
   // Logout
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login");
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      sessionStorage.clear();
+      // Removed undefined setIsLoggedIn, setShow, setShowToast
+      navigate("/");
+    }
   };
-
+  
   return (
     <div className="profile-container">
       <nav className="profile-navbar">

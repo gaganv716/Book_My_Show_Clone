@@ -15,6 +15,8 @@ import CreditCardPayment from "./pages/CreditCardPayment";
 import NetBankingPayment from "./pages/NetBankingPayment";
 import PrivateRoute from "./components/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
+import Success from "./pages/Success";  // or wherever your Success.jsx is located
+
 
 function App() {
   // Global login state
@@ -26,35 +28,36 @@ function App() {
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard"
-  element={<Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
-/>
+  {/* Public Routes */}
+  <Route path="/" element={<Home />} />
+  <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+  <Route path="/movie/:id" element={<MovieDetails isLoggedIn={isLoggedIn} />} />
+  <Route path="/theaters/:movieId" element={<TheaterList />} />
+  <Route path="/seat-selection" element={<SeatSelectionPage />} />
+  <Route path="/order" element={<OrdersPage />} />
+  <Route path="/success" element={<Success />} /> {/* ✅ Fix: Ensure success route is correct */}
 
-        <Route path="/movie/:id" element={<MovieDetails isLoggedIn={isLoggedIn} />} />
-        <Route path="/theaters/:movieId" element={<TheaterList />} />
-        <Route path="/seat-selection" element={<SeatSelectionPage />} />
-        <Route path="/seat-selection" element={<SeatSelectionPage />} />
-        <Route path="/order" element={<OrdersPage />} />
+  {/* Payment routes */}
+  <Route path="/payment/upi" element={<UpiPayment />} />
+  <Route path="/payment/creditcard" element={<CreditCardPayment />} />
+  <Route path="/payment/netbanking" element={<NetBankingPayment />} />
 
-        {/* Payment routes */}
-        <Route path="/payment/upi" element={<UpiPayment />} />
-        <Route path="/payment/creditcard" element={<CreditCardPayment />} />
-        <Route path="/payment/netbanking" element={<NetBankingPayment />} />
-        <Route path="/profile" element={<ProfilePage />} />
+  {/* Success page route */}
+  <Route path="/success" element={<Success />} />
 
+  <Route path="/profile" element={<ProfilePage />} />
 
-        {/* ✅ Protected Dashboard Route */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+  {/* Protected dashboard route */}
+  <Route
+    path="/dashboard"
+    element={
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    }
+  />
+</Routes>
+
     </div>
   );
 }

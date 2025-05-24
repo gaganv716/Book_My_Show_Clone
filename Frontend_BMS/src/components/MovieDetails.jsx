@@ -54,7 +54,13 @@ const MovieDetails = () => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   const handleBookTicketsClick = () => {
-    navigate(`/theaters/${id}`, { state: { posterUrl } }); // Pass poster URL
+    navigate(`/theaters/${id}`, {
+  state: {
+    posterUrl,
+    title: movie.title, // ✅ Pass the title here
+  },
+});
+ // Pass poster URL
   };
 
   return (
