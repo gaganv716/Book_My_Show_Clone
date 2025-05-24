@@ -57,7 +57,7 @@ const MovieDetails = () => {
     navigate(`/theaters/${id}`, {
   state: {
     posterUrl,
-    title: movie.title, // ✅ Pass the title here
+    movieTitle: movie.title, // ✅ Pass the title here
   },
 });
  // Pass poster URL
