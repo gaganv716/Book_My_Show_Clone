@@ -1,1 +1,5 @@
+# Ignore main .env
+.env
+
+# Ignore frontend .env
 Frontend_BMS/src/.env
