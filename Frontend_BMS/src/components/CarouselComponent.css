@@ -1,0 +1,31 @@
+.slick-slider {
+    position: relative;
+  }
+  
+  .slick-slide img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: black; /* Customize arrow colors */
+  }
+  .slick-slide {
+    padding: 0 10px; /* Adds a 10px gap between the slides */
+  }
+  
+  .slick-list {
+    margin: 0 -10px; /* Compensates for the padding to keep alignment */
+  }
+  .slick-list {
+  margin: 0; /* Remove any extra margins */
+  padding: 0; /* Ensure padding doesn’t cause spacing issues */
+  width: 100%; /* Make sure the list stretches across the page */
+}
+
+.slick-track {
+  display: flex;
+  width: 100%; /* Ensure slides stretch across the full width */
+}

@@ -1,0 +1,102 @@
+.profile-container {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fefefe;
+  min-height: 100vh;
+  color: #333;
+}
+
+.profile-navbar {
+  background-color: #9c1c1c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-btn {
+  background-color: white;
+  color: #9c1c1c;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  margin-left: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.profile-box {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.profile-title {
+  color: #9c1c1c;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.profile-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.profile-form input,
+.profile-form select,
+.profile-form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.save-btn,
+.cancel-btn,
+.edit-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #9c1c1c;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+}
+
+.edit-btn {
+  background-color: #9c1c1c;
+  color: white;
+}

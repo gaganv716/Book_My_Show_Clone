@@ -1,0 +1,31 @@
+.movie-card {
+    width: 180px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Keeps the text color consistent */
+}
+
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+}
+
+.movie-details {
+    padding: 10px;
+    text-align: center;
+}
+
+.movie-details h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.movie-details p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}

@@ -1,0 +1,168 @@
+.movie-list {
+    padding: 20px;
+}
+
+.section-heading {
+    text-align: left;
+    font-family: "Poppins", sans-serif; /* You can change the font to something more stylish */
+    font-size: 36px;
+    color: #000000; /* Adjust the color to match your theme */
+    margin: 40px 0 20px 0; /* Adjust the spacing as needed */
+}
+
+.movie-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures space for arrow buttons */
+    padding: 0 20px; /* Adds space around the container */
+}
+
+.movie-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: hidden; /* Prevent horizontal scrolling initially */
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+    width: calc(5 * 300px + 5 * 15px); /* 5 cards + gaps */
+}
+
+.movie-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: -20px;
+}
+
+.scroll-btn.right {
+    right: calc(2% + 70px); /* Adjust dynamically */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.movie-card {
+    width: 300px; /* Reduce width for a more compact size */
+    height: 500px; /* Adjust height for a balanced look */
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 300px; /* Keep consistency */
+    flex-shrink: 0; /* Prevent shrinking of cards */
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-image {
+    width: 100%;
+    height: 200px; /* Reduced height for a compact layout */
+    object-fit: cover;
+    border-radius: 8px 8px 0 0; /* Keep the top corners rounded */
+}
+
+.movie-details {
+    padding: 8px;
+    text-align: center;
+    font-size: 14px; /* Slightly smaller font for compact details */
+    line-height: 1.4; /* Adjust line spacing for readability */
+}
+
+.movie-title {
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Add "..." for long titles */
+}
+
+.movie-rating {
+    background: black;
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 12px; /* Keep the font small and clear */
+    margin-top: 5px;
+}
+
+
+/* ✅ Premiere Section Styling */
+.premiere-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.premiere-icon {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.premiere-text h2 {
+    font-size: 24px;
+    color: white;
+    margin: 0;
+}
+
+.premiere-text p {
+    font-size: 14px;
+    color: #ccc;
+    margin: 0;
+}
+
+.premiere-section {
+    background-color: #1b1b32;
+    padding: 20px;
+    color: white;
+}
+
+.premiere-heading {
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    font-size: 36px;
+    color: #ffffff;
+    margin: 40px 0 20px;
+}
+.premiere-section {
+    background-color: #1b1b32;
+    padding: 2rem 0;
+  }
+
+.premiere-background {
+    background-color: #1b1b32; /* Replace with your desired color */
+    width: 100%; /* Full width of the screen */
+  }
+  

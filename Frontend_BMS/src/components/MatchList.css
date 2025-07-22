@@ -1,0 +1,76 @@
+.match-list {
+    padding: 20px;
+  }
+  
+  .section-heading {
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    font-size: 36px;
+    color: #000;
+    margin: 40px 0 20px 0;
+  }
+  
+  .match-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .match-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    width: calc(5 * 300px + 5 * 15px); /* 5 cards + gaps */
+  }
+  
+  .match-card {
+    width: 300px;
+    height: 300px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .match-teams {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .match-details {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+  }
+  
+  .scroll-btn.left {
+    left: -20px;
+  }
+  
+  .scroll-btn.right {
+    right: calc(2% + 70px);
+  }
+  
